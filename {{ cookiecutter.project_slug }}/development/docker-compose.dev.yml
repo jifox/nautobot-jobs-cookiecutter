@@ -10,6 +10,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
+      - "../jobs:/opt/nautobot/jobs"
       - "./nautobot_config.py:/opt/nautobot/nautobot_config.py"
       - "../:/source"
   docs:
@@ -25,5 +26,6 @@ services:
     tty: true
   worker:
     volumes:
+      - "../jobs:/opt/nautobot/jobs"
       - "./nautobot_config.py:/opt/nautobot/nautobot_config.py"
       - "../:/source"

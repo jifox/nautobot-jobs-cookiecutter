@@ -4,25 +4,12 @@ import os
 PROJECT_DIRECTORY = os.path.realpath(os.path.curdir)
 
 
-def remove_file(filepath):
-    os.remove(os.path.join(PROJECT_DIRECTORY, filepath))
+# def remove_file(filepath):
+#     os.remove(os.path.join(PROJECT_DIRECTORY, filepath))
 
-
-mattermost_files = [
-    "development/docker-compose.mattermost-dev.yml",
-    "development/configure_chatops.sh",
-    "development/Dockerfile-mattermost",
-    "development/mattermost_config_docker.json",
-    "development/mattermost-docker-entry.sh",
-    "development/mattermost.env",
-]
 
 if __name__ == "__main__":
     # Delete Mattermost specific files
-    if "No" == "{{ cookiecutter.setup_local_mattermost_dev_env }}":
-        for file in mattermost_files:
-            remove_file(file)
-
     if "Not open source or other" == "{{ cookiecutter.open_source_license }}":
         remove_file("LICENSE")
 
