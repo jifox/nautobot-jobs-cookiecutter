@@ -20,7 +20,7 @@ def test_bake_project(cookies, nautobot_jobs_dir):
     """Test Bake Project."""
     result = cookies.bake(
         template=nautobot_jobs_dir,
-        extra_context={"repo_name": "nautobot-jobs"},
+        extra_context={"project_name": "nautobot-jobs"},
     )
     assert result.exit_code == 0
     assert result.exception is None

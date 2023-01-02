@@ -5,13 +5,13 @@ on: # yamllint disable-line rule:truthy rule:comments
   - "pull_request"
 
 env:
-  repo_name: "{{cookiecutter.project_slug}}"
+  project_name: "{{cookiecutter.project_slug}}"
 
 jobs:
   black:
     runs-on: "ubuntu-20.04"
     env:
-      INVOKE_{{cookiecutter.repo_name.upper()}}_LOCAL: "True"
+      INVOKE_{{cookiecutter.project_name.upper()}}_LOCAL: "True"
     steps:
       - name: "Check out repository code"
         uses: "actions/checkout@v2"
@@ -22,7 +22,7 @@ jobs:
   bandit:
     runs-on: "ubuntu-20.04"
     env:
-      INVOKE_{{cookiecutter.repo_name.upper()}}_LOCAL: "True"
+      INVOKE_{{cookiecutter.project_name.upper()}}_LOCAL: "True"
     steps:
       - name: "Check out repository code"
         uses: "actions/checkout@v2"
@@ -33,7 +33,7 @@ jobs:
   pydocstyle:
     runs-on: "ubuntu-20.04"
     env:
-      INVOKE_{{cookiecutter.repo_name.upper()}}_LOCAL: "True"
+      INVOKE_{{cookiecutter.project_name.upper()}}_LOCAL: "True"
     steps:
       - name: "Check out repository code"
         uses: "actions/checkout@v2"
@@ -44,7 +44,7 @@ jobs:
   flake8:
     runs-on: "ubuntu-20.04"
     env:
-      INVOKE_{{cookiecutter.repo_name.upper()}}_LOCAL: "True"
+      INVOKE_{{cookiecutter.project_name.upper()}}_LOCAL: "True"
     steps:
       - name: "Check out repository code"
         uses: "actions/checkout@v2"
@@ -55,7 +55,7 @@ jobs:
   yamllint:
     runs-on: "ubuntu-20.04"
     env:
-      INVOKE_{{cookiecutter.repo_name.upper()}}_LOCAL: "True"
+      INVOKE_{{cookiecutter.project_name.upper()}}_LOCAL: "True"
     steps:
       - name: "Check out repository code"
         uses: "actions/checkout@v2"
@@ -77,8 +77,8 @@ jobs:
         python-version: ["3.9"]
         nautobot-version: ["{{cookiecutter.min_nautobot_version}}"]
     env:
-      INVOKE_{{cookiecutter.repo_name.upper()}}_PYTHON_VER: "${{ '{{ matrix.python-version }}' }}"
-      INVOKE_{{cookiecutter.repo_name.upper()}}_NAUTOBOT_VER: "${{ '{{ matrix.nautobot-version }}' }}"
+      INVOKE_{{cookiecutter.project_name.upper()}}_PYTHON_VER: "${{ '{{ matrix.python-version }}' }}"
+      INVOKE_{{cookiecutter.project_name.upper()}}_NAUTOBOT_VER: "${{ '{{ matrix.nautobot-version }}' }}"
     steps:
       - name: "Check out repository code"
         uses: "actions/checkout@v2"
@@ -94,7 +94,7 @@ jobs:
           context: "./"
           push: false
           load: true
-          tags: "${{ '{{ env.repo_name }}' }}/nautobot:${{ '{{ matrix.nautobot-version }}' }}-py${{ '{{ matrix.python-version }}' }}"
+          tags: "${{ '{{ env.project_name }}' }}/nautobot:${{ '{{ matrix.nautobot-version }}' }}-py${{ '{{ matrix.python-version }}' }}"
           file: "./development/Dockerfile"
           cache-from: "type=gha,scope=${{ '{{ matrix.nautobot-version }}' }}-py${{ '{{ matrix.python-version }}' }}"
           cache-to: "type=gha,scope=${{ '{{ matrix.nautobot-version }}' }}-py${{ '{{ matrix.python-version }}' }}"
@@ -118,8 +118,8 @@ jobs:
         nautobot-version: ["{{cookiecutter.min_nautobot_version}}", "stable"]
     runs-on: "ubuntu-20.04"
     env:
-      INVOKE_{{cookiecutter.repo_name.upper()}}_PYTHON_VER: "${{ '{{ matrix.python-version }}' }}"
-      INVOKE_{{cookiecutter.repo_name.upper()}}_NAUTOBOT_VER: "${{ '{{ matrix.nautobot-version }}' }}"
+      INVOKE_{{cookiecutter.project_name.upper()}}_PYTHON_VER: "${{ '{{ matrix.python-version }}' }}"
+      INVOKE_{{cookiecutter.project_name.upper()}}_NAUTOBOT_VER: "${{ '{{ matrix.nautobot-version }}' }}"
     steps:
       - name: "Check out repository code"
         uses: "actions/checkout@v2"
@@ -135,7 +135,7 @@ jobs:
           context: "./"
           push: false
           load: true
-          tags: "${{ '{{ env.repo_name }}' }}/nautobot:${{ '{{ matrix.nautobot-version }}' }}-py${{ '{{ matrix.python-version }}' }}"
+          tags: "${{ '{{ env.project_name }}' }}/nautobot:${{ '{{ matrix.nautobot-version }}' }}-py${{ '{{ matrix.python-version }}' }}"
           file: "./development/Dockerfile"
           cache-from: "type=gha,scope=${{ '{{ matrix.nautobot-version }}' }}-py${{ '{{ matrix.python-version }}' }}"
           cache-to: "type=gha,scope=${{ '{{ matrix.nautobot-version }}' }}-py${{ '{{ matrix.python-version }}' }}"

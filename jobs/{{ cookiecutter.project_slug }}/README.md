@@ -22,13 +22,13 @@ Once installed, the plugin needs to be enabled in your `nautobot_config.py`
 
 ```python
 # In your nautobot_config.py
-PLUGINS = ["nautobot_chatops", "{{cookiecutter.repo_name}}"]
+PLUGINS = ["nautobot_chatops", "{{cookiecutter.project_name}}"]
 
 PLUGINS_CONFIG = {
   "nautobot_chatops": {
     # ADD SLACK/MS-TEAMS/WEBEX-TEAMS/MATTERMOST SETTINGS HERE
   }
-  "{{cookiecutter.repo_name}}": {
+  "{{cookiecutter.project_name}}": {
     # ADD YOUR SETTINGS HERE
   }
 }
@@ -80,7 +80,7 @@ Using PyInvoke these configuration options can be overridden using [several meth
 
 ```shell
 ---
-{{cookiecutter.repo_name}}:
+{{cookiecutter.project_name}}:
   local: true
   compose_files:
     - "docker-compose.requirements.yml"

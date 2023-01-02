@@ -33,7 +33,7 @@ Let's walk you through baking a **nautobot-jobs** cookie. Below are the settings
 | --- | --- |
 | **full_name** | Used in the **author** field within `pyproject.toml` and `PluginConfig` |
 | **email** | Used in the **author** field within `pyproject.toml` |
-| **repo_name** | The Python name of the plugin |
+| **project_name** | The Python name of the plugin |
 | **verbose_name** | Used in `PluginConfig` |
 | **plugin_slug** | Python packaging name |
 | **project_slug** | Slug for the project |
@@ -52,7 +52,7 @@ Let's walk you through baking a **nautobot-jobs** cookie. Below are the settings
 ❯ cookiecutter .
 
 full_name [John Doe]: email [mail@example.com]:
-repo_name [nautobot_plugin_chatops_my_plugin]:
+project_name [nautobot_plugin_chatops_my_plugin]:
 verbose_name [Nautobot Plugin Chatops My Plugin]:
 plugin_slug [nautobot-plugin-chatops-my-plugin]:
 project_slug [nautobot-plugin-chatops-my-plugin]:

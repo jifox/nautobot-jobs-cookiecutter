@@ -15,7 +15,7 @@ include = [
     "README.md",
 ]
 packages = [
-    { include = "{{cookiecutter.repo_name}}" },
+    { include = "{{cookiecutter.project_name}}" },
 ]
 
 [tool.poetry.dependencies]
