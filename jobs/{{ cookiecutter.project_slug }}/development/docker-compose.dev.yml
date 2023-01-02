@@ -20,7 +20,7 @@ services:
     volumes:
       - "../docs:/source/docs:ro"
       - "../mkdocs.yml:/source/mkdocs.yml:ro"
-    image: "{{ cookiecutter.plugin_slug }}/nautobot:${NAUTOBOT_VER}-py${PYTHON_VER}"
+    image: "{{ cookiecutter.project_slug }}/nautobot:${NAUTOBOT_VER}-py${PYTHON_VER}"
     healthcheck:
       disable: true
     tty: true

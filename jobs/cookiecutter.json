@@ -7,7 +7,7 @@
   "min_nautobot_version": "1.2.0",
   "max_nautobot_version": "1.9999",
   "nautobot_version": "latest",
-  "camel_name": "{{cookiecutter.plugin_slug.title().replace('-', '')}}",
+  "camel_name": "{{cookiecutter.project_slug.title().replace('-', '')}}",
   "project_short_description": "{{cookiecutter.verbose_name}}",
   "version": "0.1.0",
   "open_source_license": ["Apache-2.0", "Not open source"],

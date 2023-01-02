@@ -139,7 +139,7 @@ When trying to debug an issue, one helpful thing you can look at are the logs wi
 
 > NOTE: The `-f` tag will keep the logs open, and output them in realtime as they are generated.
 
-So for example, our plugin is named `{{ cookiecutter.plugin_slug }}`, the command would most likely be `docker logs {{ cookiecutter.project_name }}_nautobot_1 -f`. You can find the name of all running containers via `docker ps`.
+So for example, our plugin is named `{{ cookiecutter.project_slug }}`, the command would most likely be `docker logs {{ cookiecutter.project_name }}_nautobot_1 -f`. You can find the name of all running containers via `docker ps`.
 
 If you want to view the logs specific to the worker container, simply use the name of that container instead.
 

@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "{{cookiecutter.plugin_slug}}"
+name = "{{cookiecutter.project_slug}}"
 version = "{{cookiecutter.version}}"
 description = "{{cookiecutter.project_short_description}}"
 authors = ["{{cookiecutter.full_name}} <{{cookiecutter.email}}>"]
@@ -7,7 +7,7 @@ authors = ["{{cookiecutter.full_name}} <{{cookiecutter.email}}>"]
 license = "{{cookiecutter.open_source_license}}"
 {%- endif %}
 readme = "README.md"
-keywords = ["nautobot", "nautobot-plugin", "nautobot-chatops-plugin"]
+keywords = ["nautobot", "nautobot-jobs"]
 include = [
 {%- if cookiecutter.open_source_license == 'Apache-2.0' %}
     "LICENSE",

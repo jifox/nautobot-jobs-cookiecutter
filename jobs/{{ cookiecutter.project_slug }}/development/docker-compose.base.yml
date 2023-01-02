@@ -9,7 +9,7 @@ x-nautobot-build:
     dockerfile: "development/Dockerfile"
 x-nautobot-base:
   &nautobot-base
-  image: "{{ cookiecutter.plugin_slug }}/nautobot:${NAUTOBOT_VER}-py${PYTHON_VER}"
+  image: "{{ cookiecutter.project_slug }}/nautobot:${NAUTOBOT_VER}-py${PYTHON_VER}"
   env_file:
     - "development.env"
     - "creds.env"

@@ -35,7 +35,6 @@ Let's walk you through baking a **nautobot-jobs** cookie. Below are the settings
 | **email** | Used in the **author** field within `pyproject.toml` |
 | **project_name** | The Python name of the plugin |
 | **verbose_name** | Used in `PluginConfig` |
-| **plugin_slug** | Python packaging name |
 | **project_slug** | Slug for the project |
 | **base_url** | Defines plugin's base url used in Nautobot |
 | **min_nautobot_version** | The minimum supported Nautobot version |
@@ -54,7 +53,6 @@ Let's walk you through baking a **nautobot-jobs** cookie. Below are the settings
 full_name [John Doe]: email [mail@example.com]:
 project_name [nautobot_plugin_chatops_my_plugin]:
 verbose_name [Nautobot Plugin Chatops My Plugin]:
-plugin_slug [nautobot-plugin-chatops-my-plugin]:
 project_slug [nautobot-plugin-chatops-my-plugin]:
 min_nautobot_version [1.2.0]:
 max_nautobot_version [1.9999]:
