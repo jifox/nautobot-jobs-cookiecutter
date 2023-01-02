@@ -20,7 +20,7 @@ def test_bake_project(cookies, nautobot_jobs_dir):
     """Test Bake Project."""
     result = cookies.bake(
         template=nautobot_jobs_dir,
-        extra_context={"repo_name": "nautobot-jobs"},
+        extra_context={"project_name": "nautobot-jobs"},
     )
     assert result.exit_code == 0
     assert result.exception is None
@@ -28,13 +28,12 @@ def test_bake_project(cookies, nautobot_jobs_dir):
     assert result.project_path.is_dir()
 
 
-# #
-# def test_year_compute_in_license_file(cookies, nautobot_jobs_dir):
-#     """Test year compute in license file."""
-#     result = cookies.bake(template=nautobot_jobs_dir)
-#     license_file_path = result.project_path.joinpath("LICENSE")
-#     now = datetime.datetime.now()
-#     assert str(now.year) in license_file_path.read_text()
+def test_year_compute_in_license_file(cookies, nautobot_jobs_dir):
+    """Test year compute in license file."""
+    result = cookies.bake(template=nautobot_jobs_dir)
+    license_file_path = result.project_path.joinpath("LICENSE")
+    now = datetime.datetime.now()
+    assert str(now.year) in license_file_path.read_text()
 
 
 # def test_cookie_output_dir(cookies, nautobot_jobs_dir):

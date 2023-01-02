@@ -82,27 +82,27 @@ The last command to know for now is `invoke stop`.
 ➜ invoke stop
 Stopping Nautobot...
 Running docker-compose command "down"
-Stopping {{ cookiecutter.repo_name }}_worker_1   ...
-Stopping {{ cookiecutter.repo_name }}_nautobot_1 ...
-Stopping {{ cookiecutter.repo_name }}_docs_1     ...
-Stopping {{ cookiecutter.repo_name }}_redis_1    ...
-Stopping {{ cookiecutter.repo_name }}_postgres_1 ...
-Stopping {{ cookiecutter.repo_name }}_worker_1   ... done
-Stopping {{ cookiecutter.repo_name }}_nautobot_1 ... done
-Stopping {{ cookiecutter.repo_name }}_postgres_1 ... done
-Stopping {{ cookiecutter.repo_name }}_redis_1    ... done
-Stopping {{ cookiecutter.repo_name }}_docs_1     ... done
-Removing {{ cookiecutter.repo_name }}_worker_1   ...
-Removing {{ cookiecutter.repo_name }}_nautobot_1 ...
-Removing {{ cookiecutter.repo_name }}_docs_1     ...
-Removing {{ cookiecutter.repo_name }}_redis_1    ...
-Removing {{ cookiecutter.repo_name }}_postgres_1 ...
-Removing {{ cookiecutter.repo_name }}_postgres_1 ... done
-Removing {{ cookiecutter.repo_name }}_docs_1     ... done
-Removing {{ cookiecutter.repo_name }}_worker_1   ... done
-Removing {{ cookiecutter.repo_name }}_redis_1    ... done
-Removing {{ cookiecutter.repo_name }}_nautobot_1 ... done
-Removing network {{ cookiecutter.repo_name }}_default
+Stopping {{ cookiecutter.project_name }}_worker_1   ...
+Stopping {{ cookiecutter.project_name }}_nautobot_1 ...
+Stopping {{ cookiecutter.project_name }}_docs_1     ...
+Stopping {{ cookiecutter.project_name }}_redis_1    ...
+Stopping {{ cookiecutter.project_name }}_postgres_1 ...
+Stopping {{ cookiecutter.project_name }}_worker_1   ... done
+Stopping {{ cookiecutter.project_name }}_nautobot_1 ... done
+Stopping {{ cookiecutter.project_name }}_postgres_1 ... done
+Stopping {{ cookiecutter.project_name }}_redis_1    ... done
+Stopping {{ cookiecutter.project_name }}_docs_1     ... done
+Removing {{ cookiecutter.project_name }}_worker_1   ...
+Removing {{ cookiecutter.project_name }}_nautobot_1 ...
+Removing {{ cookiecutter.project_name }}_docs_1     ...
+Removing {{ cookiecutter.project_name }}_redis_1    ...
+Removing {{ cookiecutter.project_name }}_postgres_1 ...
+Removing {{ cookiecutter.project_name }}_postgres_1 ... done
+Removing {{ cookiecutter.project_name }}_docs_1     ... done
+Removing {{ cookiecutter.project_name }}_worker_1   ... done
+Removing {{ cookiecutter.project_name }}_redis_1    ... done
+Removing {{ cookiecutter.project_name }}_nautobot_1 ... done
+Removing network {{ cookiecutter.project_name }}_default
 ```
 
 This will safely shut down all of your running Docker containers for this project. When you are ready to spin containers back up, it is as simple as running `invoke start` again like in [**Invoke - Starting the Development Environment**](#invoke---starting-the-development-environment).
@@ -117,7 +117,7 @@ Now you can start developing your plugin in the folder generated for you by Cook
 
 #### Adding new chatbot commands
 
-After updating the `{{ cookiecutter.repo_name }}/worker.py` file and saving it, the backend Django service should auto-reload with your changes. If it doesn't, or a bug in the code caused it to crash, you can quickly relaunch it from your poetry environment with `invoke restart`.
+After updating the `{{ cookiecutter.project_name }}/worker.py` file and saving it, the backend Django service should auto-reload with your changes. If it doesn't, or a bug in the code caused it to crash, you can quickly relaunch it from your poetry environment with `invoke restart`.
 
 ## Docker Magic
 
@@ -139,7 +139,7 @@ When trying to debug an issue, one helpful thing you can look at are the logs wi
 
 > NOTE: The `-f` tag will keep the logs open, and output them in realtime as they are generated.
 
-So for example, our plugin is named `{{ cookiecutter.plugin_slug }}`, the command would most likely be `docker logs {{ cookiecutter.repo_name }}_nautobot_1 -f`. You can find the name of all running containers via `docker ps`.
+So for example, our plugin is named `{{ cookiecutter.project_slug }}`, the command would most likely be `docker logs {{ cookiecutter.project_name }}_nautobot_1 -f`. You can find the name of all running containers via `docker ps`.
 
 If you want to view the logs specific to the worker container, simply use the name of that container instead.
 
@@ -208,10 +208,10 @@ You can even launch an `ngrok` service locally on your laptop, pointing to port 
 To update the Python version, you can update it within `tasks.py`.
 
 ```python
-namespace = Collection("{{ cookiecutter.repo_name }}")
+namespace = Collection("{{ cookiecutter.project_name }}")
 namespace.configure(
     {
-        "{{ cookiecutter.repo_name }}": {
+        "{{ cookiecutter.project_name }}": {
             ...
             "python_ver": "3.7",
 	    ...
@@ -220,17 +220,17 @@ namespace.configure(
 )
 ```
 
-Or set the `INVOKE_{{ cookiecutter.repo_name.upper() }}_PYTHON_VER` variable
+Or set the `INVOKE_{{ cookiecutter.project_name.upper() }}_PYTHON_VER` variable
 
 ### Updating Nautobot Version
 
 To update the Python version, you can update it within `tasks.py`.
 
 ```python
-namespace = Collection("{{ cookiecutter.repo_name }}")
+namespace = Collection("{{ cookiecutter.project_name }}")
 namespace.configure(
     {
-        "{{ cookiecutter.repo_name }}": {
+        "{{ cookiecutter.project_name }}": {
             ...
             "nautobot_ver": "1.0.2",
 	    ...
@@ -239,7 +239,7 @@ namespace.configure(
 )
 ```
 
-Or set the `INVOKE_{{ cookiecutter.repo_name.upper() }}_NAUTOBOT_VER` variable
+Or set the `INVOKE_{{ cookiecutter.project_name.upper() }}_NAUTOBOT_VER` variable
 
 ## Local Development Environment
 

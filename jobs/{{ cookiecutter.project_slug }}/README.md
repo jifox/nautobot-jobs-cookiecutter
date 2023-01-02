@@ -7,28 +7,28 @@ A plugin for [Nautobot](https://github.com/nautobot/nautobot).
 The plugin is available as a Python package in pypi and can be installed with pip
 
 ```shell
-pip install {{cookiecutter.plugin_slug}}
+pip install {{cookiecutter.project_slug}}
 ```
 
 > The plugin is compatible with Nautobot {{cookiecutter.min_nautobot_version}} and higher
 
-To ensure {{cookiecutter.verbose_name}} is automatically re-installed during future upgrades, create a file named `local_requirements.txt` (if not already existing) in the Nautobot root directory (alongside `requirements.txt`) and list the `{{cookiecutter.plugin_slug}}` package:
+To ensure {{cookiecutter.verbose_name}} is automatically re-installed during future upgrades, create a file named `local_requirements.txt` (if not already existing) in the Nautobot root directory (alongside `requirements.txt`) and list the `{{cookiecutter.project_slug}}` package:
 
 ```no-highlight
-# echo {{cookiecutter.plugin_slug}} >> local_requirements.txt
+# echo {{cookiecutter.project_slug}} >> local_requirements.txt
 ```
 
 Once installed, the plugin needs to be enabled in your `nautobot_config.py`
 
 ```python
 # In your nautobot_config.py
-PLUGINS = ["nautobot_chatops", "{{cookiecutter.repo_name}}"]
+PLUGINS = ["nautobot_chatops", "{{cookiecutter.project_name}}"]
 
 PLUGINS_CONFIG = {
   "nautobot_chatops": {
     # ADD SLACK/MS-TEAMS/WEBEX-TEAMS/MATTERMOST SETTINGS HERE
   }
-  "{{cookiecutter.repo_name}}": {
+  "{{cookiecutter.project_name}}": {
     # ADD YOUR SETTINGS HERE
   }
 }
@@ -64,13 +64,13 @@ The development environment can be used in 2 ways. First, with a local poetry en
 The [PyInvoke](http://www.pyinvoke.org/) library is used to provide some helper commands based on the environment. There are a few configuration parameters which can be passed to PyInvoke to override the default configuration:
 
 - `nautobot_ver`: the version of Nautobot to use as a base for any built docker containers (default: {{cookiecutter.nautobot_version}})
-- `project_name`: the default docker compose project name (default: {{cookiecutter.plugin_slug}})
+- `project_name`: the default docker compose project name (default: {{cookiecutter.project_slug}})
 - `python_ver`: the version of Python to use as a base for any built docker containers (default: 3.7)
 - `local`: a boolean flag indicating if invoke tasks should be run on the host or inside the docker containers (default: False, commands will be run in docker containers)
 - `compose_dir`: the full path to a directory containing the project compose files
 - `compose_files`: a list of compose files applied in order (see [Multiple Compose files](https://docs.docker.com/compose/extends/#multiple-compose-files) for more information)
 
-Using PyInvoke these configuration options can be overridden using [several methods](http://docs.pyinvoke.org/en/stable/concepts/configuration.html). Perhaps the simplest is simply setting an environment variable `INVOKE_{{cookiecutter.plugin_slug.upper()}}_VARIABLE_NAME` where `VARIABLE_NAME` is the variable you are trying to override. The only exception is `compose_files`, because it is a list it must be overridden in a yaml file. There is an example `invoke.yml` in this directory which can be used as a starting point.
+Using PyInvoke these configuration options can be overridden using [several methods](http://docs.pyinvoke.org/en/stable/concepts/configuration.html). Perhaps the simplest is simply setting an environment variable `INVOKE_{{cookiecutter.project_slug.upper()}}_VARIABLE_NAME` where `VARIABLE_NAME` is the variable you are trying to override. The only exception is `compose_files`, because it is a list it must be overridden in a yaml file. There is an example `invoke.yml` in this directory which can be used as a starting point.
 
 #### Local Poetry Development Environment
 
@@ -80,7 +80,7 @@ Using PyInvoke these configuration options can be overridden using [several meth
 
 ```shell
 ---
-{{cookiecutter.repo_name}}:
+{{cookiecutter.project_name}}:
   local: true
   compose_files:
     - "docker-compose.requirements.yml"
@@ -124,7 +124,7 @@ Nautobot server can now be accessed at [http://localhost:8080](http://localhost:
 
 The project is coming with a CLI helper based on [invoke](http://www.pyinvoke.org/) to help setup the development environment. The commands are listed below in 3 categories `dev environment`, `utility` and `testing`.
 
-Each command can be executed with `invoke <command>`. Environment variables `INVOKE_{{cookiecutter.plugin_slug.upper()}}_PYTHON_VER` and `INVOKE_{{cookiecutter.plugin_slug.upper()}}_NAUTOBOT_VER` may be specified to override the default versions. Each command also has its own help `invoke <command> --help`
+Each command can be executed with `invoke <command>`. Environment variables `INVOKE_{{cookiecutter.project_slug.upper()}}_PYTHON_VER` and `INVOKE_{{cookiecutter.project_slug.upper()}}_NAUTOBOT_VER` may be specified to override the default versions. Each command also has its own help `invoke <command> --help`
 
 #### Docker dev environment
 
