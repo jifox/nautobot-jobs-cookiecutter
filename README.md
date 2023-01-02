@@ -107,28 +107,6 @@ drwxr-xr-x  7 ntc  staff   224B Aug  3 08:15 nautobot_plugin_chatops_my_plugin
 
 Once the cookie is baked the next step is to start developing the plugin! To get familiar with the development environment provided by this cookie, we recommend checking out the `GETTING_STARTED.md` or `README.md` located in the root directory of the newly baked cookie.
 
-## Automate local dev environment setup with Mattermost
-
-The baked cookie supports the automated setup of a local [Mattermost](https://mattermost.com/) instance to quickly test your chatops plugin. All settings and credentials will be pre-configured, and a separate Docker container will run Mattermost in the background, accessible at <http://localhost:8065>. Be sure to answer yes to the question about setup_local_mattermost_dev_env.
-
-To set up this environment, you must first run `poetry lock` command and have `creds.env` file in place. Then you run the following invoke commands from within the plugin folder.
-
-```bash
-➜ poetry shell             # Activate poetry environment
-➜ invoke build             # Build the containers
-➜ invoke setup-mattermost  # Setup the Mattermost container and configure all required settings
-➜ invoke start             # Start all Nautobot containers
-```
-
-There is no additional setup needed. After a few seconds, you can test this deployment is working properly as follows:
-
-**Mattermost**
-
-- Go to <http://localhost:8065/automationteam/messages/@ntcbot>
-- Log in using the default `admin/Nautobot123!!` credentials.
-  - These are set in `development/development.env`, and may have been changed.
-- Send a direct message to @nautobot-bot. You should be able to run an example command `/chatops_interactive_command hello-world test`, where "chatops_interactive_command" is what was configured for the last question during cookiecutter template generation.
-
 **Nautobot**
 
 - Got to <http://localhost:8080>
@@ -163,5 +141,3 @@ Once the Docker containers are spun up, go to <http://localhost:8080> to see the
 - Organization
 - Channel
 - User
-
-Once completed, open Slack (or whichever chat app client you configured). You should be able to run an example command `/chatops_interactive_command hello-world test`, where "chatops_interactive_command" is what was configured for the last question during cookiecutter template generation.

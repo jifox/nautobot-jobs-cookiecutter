@@ -1,26 +1,22 @@
 [tool.poetry]
-name = "{{cookiecutter.plugin_slug}}"
-version = "{{cookiecutter.version}}"
-description = "{{cookiecutter.project_short_description}}"
-authors = ["{{cookiecutter.full_name}} <{{cookiecutter.email}}>"]
-{%- if cookiecutter.open_source_license == 'Apache-2.0' %}
-license = "{{cookiecutter.open_source_license}}"
-{%- endif %}
+name = "nautobot-jobs"
+version = "0.1.0"
+description = "Nautobot-Jobs"
+authors = ["John Doe <mail@example.com>"]
+license = "Apache-2.0"
 readme = "README.md"
 keywords = ["nautobot", "nautobot-plugin", "nautobot-chatops-plugin"]
 include = [
-{%- if cookiecutter.open_source_license == 'Apache-2.0' %}
     "LICENSE",
-{%- endif %}
     "README.md",
 ]
 packages = [
-    { include = "{{cookiecutter.repo_name}}" },
+    { include = "nautobot-jobs" },
 ]
 
 [tool.poetry.dependencies]
 # Used for local development
-nautobot = { version = "^{{cookiecutter.min_nautobot_version}}", optional = true }
+nautobot = { version = "^1.2.0", optional = true }
 python = "^3.7"
 Markdown = "*"
 

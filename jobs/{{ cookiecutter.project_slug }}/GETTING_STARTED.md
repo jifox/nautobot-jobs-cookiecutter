@@ -4,9 +4,6 @@
   - [Introduction](#introduction)
   - [Poetry](#poetry)
   - [Full Docker Development Environment](#full-docker-development-environment)
-    - [Invoke (Fully Automated) - Local Dev Environment Setup With Mattermost](#invoke-fully-automated---local-dev-environment-setup-with-mattermost)
-    - [Invoke (Manual/Non-Mattermost) - Building the Docker Image](#invoke-manualnon-mattermost---building-the-docker-image)
-    - [Invoke (Manual/Non-Mattermost) - Starting the Development Environment](#invoke-manualnon-mattermost---starting-the-development-environment)
     - [Invoke (Manual/Non-Mattermost) - Creating a Superuser](#invoke-manualnon-mattermost---creating-a-superuser)
     - [Invoke (Manual/Non-Mattermost) - Stopping the Development Environment](#invoke-manualnon-mattermost---stopping-the-development-environment)
     - [Real-Time Updates? How Cool](#real-time-updates-how-cool)
@@ -52,94 +49,6 @@ The second command puts your shell session into the virtual environment, so all 
 **Invoke**
 
 The beauty of **Invoke** is that the Cookiecutter template provides several simple CLI commands to get developing fast. You'll use a few `invoke` commands to get your environment up and running.
-
-{%- if cookiecutter.setup_local_mattermost_dev_env == "Yes" -%}
-
-### Invoke (Fully Automated) - Local Dev Environment Setup With Mattermost
-
-The baked cookie supports the automated setup of a local Mattermost instance to quickly test your chatops plugin. All settings and credentials will be pre-configured, and a separate Docker container will run Mattermost in the background, accessible at http://localhost:8065
-
-To setup this environment, after creating the `creds.env` file and running `poetry lock` run the following invoke commands from the plugin folder, using the optional `-m` or `--mattermost` flags:
-
-```bash
-➜ poetry shell             # Activate poetry environment
-➜ invoke build             # Build the containers
-➜ invoke setup-mattermost  # Setup the Mattermost container and configure all required settings
-➜ invoke start             # Start all Nautobot containers
-```
-
-There is no additional setup needed. After a few seconds, you can test this deployment is working properly as follows:
-
-**Mattermost**
-
-- Go to http://localhost:8065/automationteam/messages/@ntcbot
-- Log in using the default `admin/Nautobot123!!` credentials.
-  - These are set in `development/development.env`, and may have been changed.
-- Send a direct message to @ntcbot. You should be able to run an example command `/{{ cookiecutter.chatops_interactive_command }} hello-world test`
-
-**Nautobot**
-
-- Got to http://localhost:8080
-- Log in using the default `admin/admin` credentials.
-  - These are set in `development/creds.env`, and may have been changed.
-
-You can see the Mattermost token and command are already configured.
-
-{%- else -%}
-
-### Invoke (Manual/Non-Mattermost) - Building the Docker Image
-
-The first thing you need to do is build the necessary Docker image for Nautobot that installs the specific **nautobot_ver**. The image is used for Nautobot and the worker service used by Docker Compose.
-
-```bash
-➜ invoke build
-... <omitted for brevity>
-#14 exporting to image
-#14 sha256:e8c613e07b0b7ff33893b694f7759a10d42e180f2b4dc349fb57dc6b71dcab00
-#14 exporting layers
-#14 exporting layers 1.2s done
-#14 writing image sha256:2d524bc1665327faa0d34001b0a9d2ccf450612bf8feeb969312e96a2d3e3503 done
-#14 naming to docker.io/{{ cookiecutter.plugin_slug }}/nautobot:{{ cookiecutter.nautobot_version }}-py3.7 done
-```
-
-### Invoke (Manual/Non-Mattermost) - Starting the Development Environment
-
-Next, you need to start up your Docker containers.
-
-```bash
-➜ invoke start
-Starting Nautobot in detached mode...
-Running docker-compose command "up --detach"
-Creating network "{{ cookiecutter.repo_name }}_default" with the default driver
-Creating volume "{{ cookiecutter.repo_name }}_postgres_data" with default driver
-Creating {{ cookiecutter.repo_name }}_redis_1 ...
-Creating {{ cookiecutter.repo_name }}_docs_1  ...
-Creating {{ cookiecutter.repo_name }}_postgres_1 ...
-Creating {{ cookiecutter.repo_name }}_postgres_1 ... done
-Creating {{ cookiecutter.repo_name }}_redis_1    ... done
-Creating {{ cookiecutter.repo_name }}_nautobot_1 ...
-Creating {{ cookiecutter.repo_name }}_docs_1     ... done
-Creating {{ cookiecutter.repo_name }}_nautobot_1 ... done
-Creating {{ cookiecutter.repo_name }}_worker_1   ...
-Creating {{ cookiecutter.repo_name }}_worker_1   ... done
-Docker Compose is now in the Docker CLI, try `docker compose up`
-```
-
-This will start all of the Docker containers used for hosting Nautobot. Once the containers are up, you should be able to open up a web browser, and view the homepage at [http://localhost:8080](http://localhost:8080).
-
-> NOTE: Sometimes the containers take a minute to fully spin up. If the page doesn't load right away, wait a minute and try again.
-
-```bash
-➜ docker ps
-****CONTAINER ID   IMAGE                            COMMAND                  CREATED          STATUS          PORTS                                       NAMES
-ee90fbfabd77   {{ cookiecutter.plugin_slug }}/nautobot:{{ cookiecutter.nautobot_version }}-py3.7   "nautobot-server cel…"   16 seconds ago   Up 13 seconds                                               {{ cookiecutter.repo_name }}_worker_1
-b8adb781d013   {{ cookiecutter.plugin_slug }}/nautobot:{{ cookiecutter.nautobot_version }}-py3.7   "/docker-entrypoint.…"   20 seconds ago   Up 15 seconds   0.0.0.0:8080->8080/tcp, :::8080->8080/tcp   {{ cookiecutter.repo_name }}_nautobot_1
-d64ebd60675d   {{ cookiecutter.plugin_slug }}/nautobot:{{ cookiecutter.nautobot_version }}-py3.7   "mkdocs serve -v -a …"   25 seconds ago   Up 18 seconds   0.0.0.0:8001->8080/tcp, :::8001->8080/tcp   {{ cookiecutter.repo_name }}_docs_1
-e72d63129b36   postgres:13-alpine               "docker-entrypoint.s…"   25 seconds ago   Up 19 seconds   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   {{ cookiecutter.repo_name }}_postgres_1
-96c6ff66997c   redis:6-alpine                   "docker-entrypoint.s…"   25 seconds ago   Up 21 seconds   0.0.0.0:6379->6379/tcp, :::6379->6379/tcp   {{ cookiecutter.repo_name }}_redis_1
-```
-
-You should see the following containers running after running `invoke start` at this time of writing.
 
 ### Invoke (Manual/Non-Mattermost) - Creating a Superuser
 
@@ -199,8 +108,6 @@ Removing network {{ cookiecutter.repo_name }}_default
 This will safely shut down all of your running Docker containers for this project. When you are ready to spin containers back up, it is as simple as running `invoke start` again like in [**Invoke - Starting the Development Environment**](#invoke---starting-the-development-environment).
 
 > NOTE: If you're wanting to reset the database and configuration settings, you can use the `invoke destroy` command, but it will result in data loss so make sure that is what you want to do.
-
-{%- endif -%}
 
 ### Real-Time Updates? How Cool
 
