@@ -10,5 +10,6 @@ rules:
     quote-type: "double"
 ignore: |
   .venv/
-  {{ cookiecutter.project_slug }}/development/docker-compose.base.yml
-  {{ cookiecutter.project_slug }}/invoke.example.yml
+  jobs/{{ cookiecutter.project_slug }}/development/docker-compose.base.yml
+  jobs/{{ cookiecutter.project_slug }}/invoke.example.yml
+  jobs/{{ cookiecutter.project_slug }}/.github/workflows/ci.yml

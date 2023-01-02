@@ -1,13 +1,21 @@
-# Nautobot ChatOps Cookiecutter
+# Nautobot Jobs Cookiecutter
 
- This project helps to get you started on your way of creating Nautobot ChatOps commands quickly. When running through the cookie cutting template, there are a few questions that will help dynamically create content within the final "baked cookie" project. This will create a new repository that will be the new chat bot that you can then install into your Nautobot instance. For more on building your own chat bot, take a look at the [blog post on Creating Custom Chat Commands](http://blog.networktocode.com/post/creating-custom-chat-commands-using-nautobot-chatops/).
+> NOTE: This was originally forked from [Nautobot Chatops Cookiecutter](https://github.com/h4ndzdatm0ld/nautobot-jobs-cookiecutter)
+
+This project helps to get you started on developing Nautobot Jobs quickly. When running through the cookie cutter template, there are a few questions that will help dynamically create content within the final "baked cookie" project.
+
+## Jobs Repository
+
+Nautobot has multiple ways in which `Jobs` can be ingested. This cookie will create a scaffold for a new directory layout that will be a `Git Repository` object inside of Nautobot.
+
+Additionally, it will give you a development environment to automatically mount the jobs in the correct directory based on the [Jobs Documentation](https://docs.nautobot.com/projects/core/en/stable/additional-features/jobs/)
 
 ## Why Cookiecutter?
 
 Before we get started, let's provide some context around the terminology used within Cookiecutter. What is this Cookiecutter? It is a Python method of creating new projects/files from a templated base. Cookiecutter is an open source command-line tool to create projects from a project template. You can learn more on the Cookiecutter [GitHub](https://github.com/cookiecutter/cookiecutter) and [ReadTheDocs](https://cookiecutter.readthedocs.io/en/stable/).
 
-* **cookie** - The Cookiecutter template that provides the framework for specific projects to allow developers to get started developing faster such as the ones defined above.
-* **bake/baking** - The output of a cookie. If a cookie is baked, it means the project was created from a Cookiecutter template.
+- **cookie** - The Cookiecutter template that provides the framework for specific projects to allow developers to get started developing faster such as the ones defined above.
+- **bake/baking** - The output of a cookie. If a cookie is baked, it means the project was created from a Cookiecutter template.
 
 Cookiecutter was chosen as a method to create projects from a template because it provides the capability to provide a customized project output based on a question/answer setup to help get customization in place.
 
@@ -17,54 +25,49 @@ Check out the [Python Cookiecutter documentation](https://cookiecutter.readthedo
 
 Below are the steps outlined in detail for getting started along with various tips and tricks that may be beneficial.
 
-## Generating a New Nautobot Chatops Plugin
+## Generating a New Nautobot Jobs Project
 
-Let's walk you through baking a **nautobot-chatops-plugin** cookie. Below are the settings that will be asked for during the question part.
+> NOTE: Recommend to use [Cruft](https://lyz-code.github.io/blue-book/linux/cruft/) to bake cookies to keep track of future changes and the ability to keep your cookie up to date.
 
-| Setting                             | Description                                                                                     |
-| ----------------------------------- | ----------------------------------------------------------------------------------------------- |
-| **full_name**                       | Used in the **author** field within `pyproject.toml` and `PluginConfig`                         |
-| **email**                           | Used in the **author** field within `pyproject.toml`                                            |
-| **chatops_interactive_command**     | Slash command used to interact with Bot in chat client                                          |
-| **plugin_name**                     | The Python name of the plugin                                                                   |
-| **verbose_name**                    | Used in `PluginConfig`                                                                          |
-| **plugin_slug**                     | Python packaging name                                                                           |
-| **project_slug**                    | Slug for the project                                                                            |
-| **base_url**                        | Defines plugin's base url used in Nautobot                                                      |
-| **min_nautobot_version**            | The minimum supported Nautobot version                                                          |
-| **max_nautobot_version**            | The maximum supported Nautobot version                                                          |
-| **nautobot_version**                | Used for development purposes to decide with Nautobot-dev Docker image to use for development   |
-| **camel_name**                      | Used to define the plugin's subclassing of `PluginConfig`, e.g. `MyPluginConfig(PluginConfig):` |
-| **project_short_description**       | Used in the **description** field within `PluginConfig`                                         |
-| **version**                         | Version of the new Nautobot plugin                                                              |
-| **open_source_license**             | Determine if project is open source or not                                                      |
-| **setup_local_mattermost_dev_env**  | Setup Local mattermost development environment flag                                             |
+Let's walk you through baking a **nautobot-jobs** cookie. Below are the settings that will be asked for during the question part.
+
+| Setting | Description |
+| --- | --- |
+| **full_name** | Used in the **author** field within `pyproject.toml` and `PluginConfig` |
+| **email** | Used in the **author** field within `pyproject.toml` |
+| **repo_name** | The Python name of the plugin |
+| **verbose_name** | Used in `PluginConfig` |
+| **plugin_slug** | Python packaging name |
+| **project_slug** | Slug for the project |
+| **base_url** | Defines plugin's base url used in Nautobot |
+| **min_nautobot_version** | The minimum supported Nautobot version |
+| **max_nautobot_version** | The maximum supported Nautobot version |
+| **nautobot_version** | Used for development purposes to decide with Nautobot-dev Docker image to use for development |
+| **camel_name** | Used to define the plugin's subclassing of `PluginConfig`, e.g. `MyPluginConfig(PluginConfig):` |
+| **project_short_description** | Used in the **description** field within `PluginConfig` |
+| **version** | Version of the new Nautobot plugin |
+| **open_source_license** | Determine if project is open source or not |
 
 > NOTE: Cookiecutter by default bakes the new cookie within the current working directory. If that is not desirable then use the `-o` option to specify a different output directory.
 
 ```bash
 ❯ cookiecutter .
 
-full_name [John Doe]: email [mail@example.com]: 
-chatops_interactive_command [my_plugin]: 
-plugin_name [nautobot_plugin_chatops_my_plugin]: 
-verbose_name [Nautobot Plugin Chatops My Plugin]: 
-plugin_slug [nautobot-plugin-chatops-my-plugin]: 
-project_slug [nautobot-plugin-chatops-my-plugin]: 
-min_nautobot_version [1.2.0]: 
-max_nautobot_version [1.9999]: 
-nautobot_version [latest]: 
-camel_name [NautobotPluginChatopsMyPlugin]: 
-project_short_description [Nautobot Plugin Chatops My Plugin]: 
-version [0.1.0]: 
+full_name [John Doe]: email [mail@example.com]:
+repo_name [nautobot_plugin_chatops_my_plugin]:
+verbose_name [Nautobot Plugin Chatops My Plugin]:
+plugin_slug [nautobot-plugin-chatops-my-plugin]:
+project_slug [nautobot-plugin-chatops-my-plugin]:
+min_nautobot_version [1.2.0]:
+max_nautobot_version [1.9999]:
+nautobot_version [latest]:
+camel_name [NautobotPluginChatopsMyPlugin]:
+project_short_description [Nautobot Plugin Chatops My Plugin]:
+version [0.1.0]:
 Select open_source_license:
 1 - Apache-2.0
 2 - Not open source
-Choose from 1, 2 [1]: 
-Select setup_local_mattermost_dev_env:
-1 - Yes
-2 - No
-Choose from 1, 2 [1]: 
+Choose from 1, 2 [1]:
 
 Congratulations!  Your cookie has now been baked.
 
@@ -106,7 +109,7 @@ Once the cookie is baked the next step is to start developing the plugin! To get
 
 ## Automate local dev environment setup with Mattermost
 
-The baked cookie supports the automated setup of a local [Mattermost](https://mattermost.com/) instance to quickly test your chatops plugin. All settings and credentials will be pre-configured, and a separate Docker container will run Mattermost in the background, accessible at http://localhost:8065. Be sure to answer yes to the question about setup_local_mattermost_dev_env.
+The baked cookie supports the automated setup of a local [Mattermost](https://mattermost.com/) instance to quickly test your chatops plugin. All settings and credentials will be pre-configured, and a separate Docker container will run Mattermost in the background, accessible at <http://localhost:8065>. Be sure to answer yes to the question about setup_local_mattermost_dev_env.
 
 To set up this environment, you must first run `poetry lock` command and have `creds.env` file in place. Then you run the following invoke commands from within the plugin folder.
 
@@ -121,14 +124,14 @@ There is no additional setup needed. After a few seconds, you can test this depl
 
 **Mattermost**
 
-- Go to http://localhost:8065/automationteam/messages/@ntcbot
+- Go to <http://localhost:8065/automationteam/messages/@ntcbot>
 - Log in using the default `admin/Nautobot123!!` credentials.
   - These are set in `development/development.env`, and may have been changed.
 - Send a direct message to @nautobot-bot. You should be able to run an example command `/chatops_interactive_command hello-world test`, where "chatops_interactive_command" is what was configured for the last question during cookiecutter template generation.
 
 **Nautobot**
 
-- Got to http://localhost:8080
+- Got to <http://localhost:8080>
 - Log in using the default `admin/admin` credentials.
   - These are set in `development/creds.env`, and may have been changed.
 
@@ -155,7 +158,7 @@ invoke build
 invoke start
 ```
 
-Once the Docker containers are spun up, go to http://localhost:8080 to see the running instance. For dev purposes, add permissions for all commands in Plugins-->Access Grants for each of the following:
+Once the Docker containers are spun up, go to <http://localhost:8080> to see the running instance. For dev purposes, add permissions for all commands in Plugins-->Access Grants for each of the following:
 
 - Organization
 - Channel

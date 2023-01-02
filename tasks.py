@@ -1,3 +1,4 @@
+"""Task Shortcuts."""
 import pathlib
 import sys
 from invoke import task

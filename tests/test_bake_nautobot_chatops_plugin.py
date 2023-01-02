@@ -57,9 +57,7 @@ def cookies_baked_nautobot_chatops_plugin(cookies):
 
     assert results[plugin_slug].exception is None
 
-    examples_projects[plugin_slug] = init_examples_project(
-        results[plugin_slug].project.basename
-    )
+    examples_projects[plugin_slug] = init_examples_project(results[plugin_slug].project.basename)
     results[plugin_slug].project.move(examples_projects[plugin_slug])
     return results, examples_projects
 

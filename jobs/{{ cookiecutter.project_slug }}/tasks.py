@@ -41,18 +41,18 @@ def is_truthy(arg):
 
 
 # Use pyinvoke configuration for default values, see http://docs.pyinvoke.org/en/stable/concepts/configuration.html
-# Variables may be overwritten in invoke.yml or by the environment variables INVOKE_{{cookiecutter.plugin_name.upper()}}_xxx
+# Variables may be overwritten in invoke.yml or by the environment variables INVOKE_{{cookiecutter.repo_name.upper()}}_xxx
 compose_files = ["docker-compose.requirements.yml", "docker-compose.base.yml", "docker-compose.dev.yml"]
 {% if cookiecutter.setup_local_mattermost_dev_env == "Yes" -%}
 compose_files.append("docker-compose.mattermost-dev.yml")
 {%- endif %}
 
-namespace = Collection("{{cookiecutter.plugin_name}}")
+namespace = Collection("{{cookiecutter.repo_name}}")
 namespace.configure(
     {
-        "{{cookiecutter.plugin_name}}": {
+        "{{cookiecutter.repo_name}}": {
             "nautobot_ver": "{{cookiecutter.nautobot_version}}",
-            "project_name": "{{cookiecutter.plugin_name}}",
+            "project_name": "{{cookiecutter.repo_name}}",
             "python_ver": "3.7",
             "local": False,
             "compose_dir": os.path.join(os.path.dirname(__file__), "development"),
@@ -90,12 +90,12 @@ def docker_compose(context, command, **kwargs):
         **kwargs: Passed through to the context.run() call.
     """
     build_env = {
-        "NAUTOBOT_VER": context.{{cookiecutter.plugin_name}}.nautobot_ver,
-        "PYTHON_VER": context.{{cookiecutter.plugin_name}}.python_ver,
+        "NAUTOBOT_VER": context.{{cookiecutter.repo_name}}.nautobot_ver,
+        "PYTHON_VER": context.{{cookiecutter.repo_name}}.python_ver,
     }
-    compose_command = f'docker-compose --project-name {context.{{cookiecutter.plugin_name}}.project_name} --project-directory "{context.{{cookiecutter.plugin_name}}.compose_dir}"'
-    for compose_file in context.{{cookiecutter.plugin_name}}.compose_files:
-        compose_file_path = os.path.join(context.{{cookiecutter.plugin_name}}.compose_dir, compose_file)
+    compose_command = f'docker-compose --project-name {context.{{cookiecutter.repo_name}}.project_name} --project-directory "{context.{{cookiecutter.repo_name}}.compose_dir}"'
+    for compose_file in context.{{cookiecutter.repo_name}}.compose_files:
+        compose_file_path = os.path.join(context.{{cookiecutter.repo_name}}.compose_dir, compose_file)
         compose_command += f' -f "{compose_file_path}"'
     compose_command += f" {command}"
     print(f'Running docker-compose command "{command}"')
@@ -104,7 +104,7 @@ def docker_compose(context, command, **kwargs):
 
 def run_command(context, command, **kwargs):
     """Wrapper to run a command locally or inside the nautobot container."""
-    if is_truthy(context.{{cookiecutter.plugin_name}}.local):
+    if is_truthy(context.{{cookiecutter.repo_name}}.local):
         context.run(command, **kwargs)
     else:
         # Check if netbox is running, no need to start another netbox container to run a command
@@ -153,7 +153,7 @@ def build(context, force_rm=False, cache=True):
     if force_rm:
         command += " --force-rm"
 
-    print(f"Building Nautobot with Python {context.{{cookiecutter.plugin_name}}.python_ver}...")
+    print(f"Building Nautobot with Python {context.{{cookiecutter.repo_name}}.python_ver}...")
     docker_compose(context, command)
 
 
@@ -245,7 +245,7 @@ def createsuperuser(context, user="admin"):
 )
 def makemigrations(context, name=""):
     """Perform makemigrations operation in Django."""
-    command = "nautobot-server makemigrations {{cookiecutter.plugin_name}}"
+    command = "nautobot-server makemigrations {{cookiecutter.repo_name}}"
 
     if name:
         command += f" --name {name}"
@@ -399,7 +399,7 @@ def hadolint(context):
 @task
 def pylint(context):
     """Run pylint code analysis."""
-    command = 'pylint --init-hook "import nautobot; nautobot.setup()" --rcfile pyproject.toml {{cookiecutter.plugin_name}}'
+    command = 'pylint --init-hook "import nautobot; nautobot.setup()" --rcfile pyproject.toml {{cookiecutter.repo_name}}'
     run_command(context, command)
 
 
@@ -445,7 +445,7 @@ def check_migrations(context):
         "buffer": "Discard output from passing tests",
     }
 )
-def unittest(context, keepdb=False, label="{{cookiecutter.plugin_name}}", failfast=False, buffer=True):
+def unittest(context, keepdb=False, label="{{cookiecutter.repo_name}}", failfast=False, buffer=True):
     """Run Nautobot unit tests."""
     command = f"coverage run --module nautobot.core.cli test {label}"
 
@@ -461,7 +461,7 @@ def unittest(context, keepdb=False, label="{{cookiecutter.plugin_name}}", failfa
 @task
 def unittest_coverage(context):
     """Report on code test coverage as measured by 'invoke unittest'."""
-    command = "coverage report --skip-covered --include '{{cookiecutter.plugin_name}}/*' --omit *migrations*"
+    command = "coverage report --skip-covered --include '{{cookiecutter.repo_name}}/*' --omit *migrations*"
 
     run_command(context, command)
 
@@ -474,7 +474,7 @@ def unittest_coverage(context):
 def tests(context, failfast=False):
     """Run all tests for this plugin."""
     # If we are not running locally, start the docker containers so we don't have to for each test
-    if not is_truthy(context.{{cookiecutter.plugin_name}}.local):
+    if not is_truthy(context.{{cookiecutter.repo_name}}.local):
         print("Starting Docker Containers...")
         start(context)
     # Sorted loosely from fastest to slowest

@@ -1,9 +1,9 @@
 {
   "full_name": "John Doe",
   "email": "mail@example.com",
-  "plugin_name": "nautobot_jobs",
-  "verbose_name": "{{cookiecutter.plugin_name.title().replace('_', ' ')}}",
-  "plugin_slug": "{{cookiecutter.plugin_name.lower().replace(' ', '-').replace('_', '-')}}",
+  "repo_name": "nautobot-jobs",
+  "verbose_name": "{{cookiecutter.repo_name.title().replace('_', ' ')}}",
+  "plugin_slug": "{{cookiecutter.repo_name.lower().replace(' ', '-').replace('_', '-')}}",
   "project_slug": "{{cookiecutter.plugin_slug}}",
   "min_nautobot_version": "1.2.0",
   "max_nautobot_version": "1.9999",

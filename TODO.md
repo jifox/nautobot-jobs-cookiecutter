@@ -1,5 +1,0 @@
-- Template Job
-- Normalize cookiecutter.json to simply default to create a repo called 'nautobot-jobs'
-- readme docs talk about cruft
-- redo the tests
--
