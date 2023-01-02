@@ -6,20 +6,18 @@ This project helps to get you started on developing Nautobot Jobs quickly. When 
 
 ## Jobs Repository
 
-Nautobot has multiple ways in which `Jobs` can be ingested. This cookie will create a scaffold for a new directory layout that will be a `Git Repository` object inside of Nautobot.
+Nautobot has multiple ways in which `Jobs` can be ingested. This cookie will create a scaffold for a new directory layout that will be a `Git Repository` object inside of Nautobot. Additionally, it will give you a development environment to automatically mount the jobs in the correct directory based on the [Jobs Documentation](https://docs.nautobot.com/projects/core/en/stable/additional-features/jobs/)
 
-Additionally, it will give you a development environment to automatically mount the jobs in the correct directory based on the [Jobs Documentation](https://docs.nautobot.com/projects/core/en/stable/additional-features/jobs/)
+## Why Cruft & Cookiecutter?
 
-## Why Cookiecutter?
-
-Before we get started, let's provide some context around the terminology used within Cookiecutter. What is this Cookiecutter? It is a Python method of creating new projects/files from a templated base. Cookiecutter is an open source command-line tool to create projects from a project template. You can learn more on the Cookiecutter [GitHub](https://github.com/cookiecutter/cookiecutter) and [ReadTheDocs](https://cookiecutter.readthedocs.io/en/stable/).
+Before we get started, let's provide some context around the terminology used within Cookiecutter. What is this Cookiecutter? It is a Python method of creating new projects/files from a templated base. Cookiecutter is an open source command-line tool to create projects from a project template. You can learn more on the Cookiecutter [GitHub](https://github.com/cookiecutter/cookiecutter) and [ReadTheDocs](https://cookiecutter.readthedocs.io/en/stable/). Cruft is the method in which you should bake your cookie to ensure that you can always stay up to date with the latest changes to this project.
 
 - **cookie** - The Cookiecutter template that provides the framework for specific projects to allow developers to get started developing faster such as the ones defined above.
 - **bake/baking** - The output of a cookie. If a cookie is baked, it means the project was created from a Cookiecutter template.
 
 Cookiecutter was chosen as a method to create projects from a template because it provides the capability to provide a customized project output based on a question/answer setup to help get customization in place.
 
-Check out the [Python Cookiecutter documentation](https://cookiecutter.readthedocs.io/en/1.7.2/) for more details of the project.
+Check out the [Python Cookiecutter documentation](https://cookiecutter.readthedocs.io/en/1.7.2/) and the[Cruft](https://lyz-code.github.io/blue-book/linux/cruft/) for more details of the project.
 
 ## Getting Started
 
@@ -112,32 +110,3 @@ Once the cookie is baked the next step is to start developing the plugin! To get
 - Got to <http://localhost:8080>
 - Log in using the default `admin/admin` credentials.
   - These are set in `development/creds.env`, and may have been changed.
-
-You can see the Mattermost token and command are already configured.
-
-### Adding new chatbot commands
-
-After updating the `{plugin-name}/worker.py` file and saving it, the backend Django service should auto-reload with your changes. If it doesn't, or a bug in the code caused it to crash, you can quickly relaunch it from your poetry environment with `invoke restart`.
-
-## Get dev environment running - Manual
-
-If you prefer to not use the local Mattermost instance for development purposes, you can follow the instructions below.
-
-You must configure the relevant ChatOps plugin variables in development/creds.env. For example, if you want to use Slack, configure the relevant API token, secret, and set `enable_slack` to true.
-
-Once done, setup the relevant SaaS application is setup on the backend. Follow the instructions found in the [Nautobot ChatOps Plugin](https://github.com/nautobot/nautobot-plugin-chatops/blob/develop/docs/chat_setup.md) repo.
-
-Then run the following commands:
-
-```bash
-poetry shell
-poetry install
-invoke build
-invoke start
-```
-
-Once the Docker containers are spun up, go to <http://localhost:8080> to see the running instance. For dev purposes, add permissions for all commands in Plugins-->Access Grants for each of the following:
-
-- Organization
-- Channel
-- User
