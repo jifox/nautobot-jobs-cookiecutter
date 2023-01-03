@@ -9,10 +9,17 @@ NAUTOBOT_JOBS_COOKIE_OUTPUT = [
     "docs",
     "README.md",
     ".gitignore",
-    "CONTRIBUTING.md",
     ".github",
-    ".git",
     "FAQ.md",
+    "tasks.py",
+    "invoke.example.yml",
+    ".yamllint.yml",
+    "development",
+    "jobs",
+    "GETTING_STARTED.md",
+    ".bandit.yml",
+    ".flake8",
+    ".dockerignore",
 ]
 
 
@@ -36,10 +43,10 @@ def test_year_compute_in_license_file(cookies, nautobot_jobs_dir):
     assert str(now.year) in license_file_path.read_text()
 
 
-# def test_cookie_output_dir(cookies, nautobot_jobs_dir):
-#     """Test cookie output dir."""
-#     result = cookies.bake(template=nautobot_jobs_dir)
-#     assert set(nautobot_jobs_dir) == {dirf.name for dirf in result.project_path.iterdir()}
+def test_cookie_output_dir(cookies, nautobot_jobs_dir):
+    """Test cookie output dir."""
+    result = cookies.bake(template=nautobot_jobs_dir)
+    assert set(NAUTOBOT_JOBS_COOKIE_OUTPUT) == set(dirf.name for dirf in result.project_path.iterdir())
 
 
 # @pytest.mark.parametrize(
