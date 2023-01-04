@@ -23,7 +23,7 @@ Before we get started, let's provide some context around the terminology used wi
 
 Cookiecutter was chosen as a method to create projects from a template because it provides the capability to provide a customized project output based on a question/answer setup to help get customization in place.
 
-Check out the [Python Cookiecutter documentation](https://cookiecutter.readthedocs.io/en/1.7.2/) and the[Cruft](https://lyz-code.github.io/blue-book/linux/cruft/) for more details of the project.
+Check out the [Python Cookiecutter documentation](https://cookiecutter.readthedocs.io/en/1.7.2/) and the [Cruft](https://lyz-code.github.io/blue-book/linux/cruft/) for more details of the project.
 
 ## Getting Started
 
