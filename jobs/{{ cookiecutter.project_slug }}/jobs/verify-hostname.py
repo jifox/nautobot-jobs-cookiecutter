@@ -5,8 +5,7 @@ from django.conf import settings
 from nautobot.dcim.models import Device
 from nautobot.extras.jobs import Job
 from netmiko import ConnectHandler
-from netmiko.exceptions import NetmikoTimeoutException, NetmikoAuthenticationException
-
+from netmiko.exceptions import NetmikoAuthenticationException, NetmikoTimeoutException
 
 # Expected hostname regex pattern
 HOSTNAME_PATTERN = re.compile(r"[a-z0-1]+\-[a-z]+\-\d+\.infra\.ntc\.com")
