@@ -4,6 +4,12 @@
 
 This project helps to get you started on developing Nautobot Jobs quickly. When running through the cookie cutter template, there are a few questions that will help dynamically create content within the final "baked cookie" project.
 
+## TLDR
+
+```bash
+python3 -m cruft create https://github.com/h4ndzdatm0ld/nautobot-jobs-cookiecutter --directory="jobs"
+```
+
 ## Jobs Repository
 
 Nautobot has multiple ways in which `Jobs` can be ingested. This cookie will create a scaffold for a new directory layout that will be a `Git Repository` object inside of Nautobot. Additionally, it will give you a development environment to automatically mount the jobs in the correct directory based on the [Jobs Documentation](https://docs.nautobot.com/projects/core/en/stable/additional-features/jobs/)
@@ -53,7 +59,7 @@ Let's walk you through baking a **nautobot-jobs** cookie. Below are the settings
 full_name [John Doe]: email [mail@example.com]:
 project_name [nautobot_plugin_chatops_my_plugin]:
 verbose_name [Nautobot Plugin Chatops My Plugin]:
-project_slug [nautobot-plugin-chatops-my-plugin]:
+project_slug [nautobot-jobs]:
 min_nautobot_version [1.2.0]:
 max_nautobot_version [1.9999]:
 nautobot_version [latest]:
@@ -69,6 +75,7 @@ Congratulations!  Your cookie has now been baked.
 
 ⚠️⚠️ Before you start using your cookie you must run the following commands inside your cookie:
 
+* cd nautobot-jobs
 * cp development/creds.example.env development/creds.env
 * poetry lock
 
@@ -78,7 +85,7 @@ creds.env will be ignored by git and can be used to override default environment
 Follow the directions provided at the end of baking the cookie.
 
 ```bash
-➜ cd nautobot-plugin-chatops-my-plugin
+➜ cd nautobot-jobs
 ➜ poetry lock
 ➜ cp development/creds.example.env development/creds.env
 ```
@@ -88,7 +95,7 @@ Here is an example of what your directory structure may look like (structure may
 > NOTE: there are hidden files not displayed in the below output.
 
 ```bash
-➜ ll nautobot-plugin-chatops-my-plugin
+➜ ll nautobot-jobs
 total 104
 -rw-r--r--  1 ntc  staff    29B Aug  3 08:15 FAQ.md
 -rw-r--r--  1 ntc  staff    16K Aug  3 08:15 GETTING_STARTED.md

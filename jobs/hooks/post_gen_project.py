@@ -12,12 +12,12 @@ def remove_file(filepath) -> None:
 
 def main() -> None:
     """Main."""
-    print("HELLO")
     if "Not open source" == "{{ cookiecutter.open_source_license }}":
         remove_file("LICENSE")
 
     print("\nCongratulations!  Your cookie has now been baked.\n")
     print("⚠️⚠️ Before you start using your cookie you must run the following commands inside your cookie:\n")
+    print("* cd {{ cookiecutter.project_slug }}")
     print("* cp development/creds.example.env development/creds.env\n* poetry lock\n")
     print("creds.env will be ignored by git and can be used to override default environment variables.\n")
 
