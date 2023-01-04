@@ -27,7 +27,7 @@ def test_bake_project(cookies, nautobot_jobs_dir):
     """Test Bake Project."""
     result = cookies.bake(
         template=nautobot_jobs_dir,
-        extra_context={"project_name": "nautobot-jobs"},
+        extra_context={"project_name": "nautobot_jobs"},
     )
     assert result.exit_code == 0
     assert result.exception is None
@@ -78,17 +78,17 @@ def test_cookie_output_dir(cookies, nautobot_jobs_dir):
 #     assert _license in result.project_path.joinpath("pyproject.toml").read_text()
 
 
-# def test_bake_not_open_source(cookies, nautobot_jobs_dir):
-#     """Test Bake with open_source_license=False."""
-#     result = cookies.bake(
-#         template=nautobot_jobs_dir,
-#         extra_context={"open_source_license": "Not open source"},
-#     )
-#     python_cookie_output = [file_folder.name for file_folder in result.project_path.iterdir()]
+def test_bake_not_open_source(cookies, nautobot_jobs_dir):
+    """Test Bake with open_source_license=False."""
+    result = cookies.bake(
+        template=nautobot_jobs_dir,
+        extra_context={"open_source_license": "Not open source"},
+    )
+    python_cookie_output = [file_folder.name for file_folder in result.project_path.iterdir()]
 
-#     assert "LICENSE" not in python_cookie_output
-#     assert "License" not in result.project_path.joinpath("README.md").read_text()
-#     assert "license" not in result.project_path.joinpath("pyproject.toml").read_text()
+    assert "LICENSE" not in python_cookie_output
+    assert "License" not in result.project_path.joinpath("README.md").read_text()
+    assert "license" not in result.project_path.joinpath("pyproject.toml").read_text()
 
 
 # @pytest.mark.parametrize(

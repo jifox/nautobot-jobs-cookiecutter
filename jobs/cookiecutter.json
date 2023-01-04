@@ -1,7 +1,7 @@
 {
   "full_name": "John Doe",
   "email": "mail@example.com",
-  "project_name": "nautobot-jobs",
+  "project_name": "nautobot_jobs",
   "verbose_name": "{{cookiecutter.project_name.title().replace('_', ' ')}}",
   "project_slug": "{{cookiecutter.project_name.lower().replace(' ', '-').replace('_', '-')}}",
   "min_nautobot_version": "1.2.0",
