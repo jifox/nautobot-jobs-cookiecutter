@@ -1,4 +1,3 @@
-"""Nautobot job to verify hostname matches pattern."""
 """Example Job."""
 from nautobot.extras.jobs import Job
 
