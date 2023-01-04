@@ -108,7 +108,7 @@ drwxr-xr-x  7 ntc  staff   224B Aug  3 08:15 nautobot_plugin_chatops_my_plugin
 -rw-r--r--  1 ntc  staff    12K Aug  3 08:15 tasks.py
 ```
 
-Once the cookie is baked the next step is to start developing the plugin! To get familiar with the development environment provided by this cookie, we recommend checking out the `GETTING_STARTED.md` or `README.md` located in the root directory of the newly baked cookie.
+Once the cookie is baked the next step is to start developing jobs! To get familiar with the development environment provided by this cookie, we recommend checking out the `GETTING_STARTED.md` or `README.md` located in the root directory of the newly baked cookie.
 
 **Nautobot**
 
