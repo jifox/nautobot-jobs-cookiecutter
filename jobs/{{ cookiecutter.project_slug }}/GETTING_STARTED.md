@@ -4,10 +4,9 @@
   - [Introduction](#introduction)
   - [Poetry](#poetry)
   - [Full Docker Development Environment](#full-docker-development-environment)
-    - [Invoke (Manual/Non-Mattermost) - Creating a Superuser](#invoke-manualnon-mattermost---creating-a-superuser)
-    - [Invoke (Manual/Non-Mattermost) - Stopping the Development Environment](#invoke-manualnon-mattermost---stopping-the-development-environment)
+    - [Invoke (Manual) - Creating a Superuser](#invoke-manual---creating-a-superuser)
+    - [Invoke (Manual) - Stopping the Development Environment](#invoke-manual---stopping-the-development-environment)
     - [Real-Time Updates? How Cool](#real-time-updates-how-cool)
-      - [Adding new chatbot commands](#adding-new-chatbot-commands)
   - [Docker Magic](#docker-magic)
     - [Docker Logs](#docker-logs)
   - [To Rebuild or Not to Rebuild](#to-rebuild-or-not-to-rebuild)
@@ -50,7 +49,7 @@ The second command puts your shell session into the virtual environment, so all 
 
 The beauty of **Invoke** is that the Cookiecutter template provides several simple CLI commands to get developing fast. You'll use a few `invoke` commands to get your environment up and running.
 
-### Invoke (Manual/Non-Mattermost) - Creating a Superuser
+### Invoke (Manual) - Creating a Superuser
 
 The Nautobot development image will automatically provision a super user when specifying the following variables within `creds.env` which is the default when copying `creds.example.env` to `creds.env`.
 
@@ -74,7 +73,7 @@ Password (again):
 Superuser created successfully.
 ```
 
-### Invoke (Manual/Non-Mattermost) - Stopping the Development Environment
+### Invoke (Manual) - Stopping the Development Environment
 
 The last command to know for now is `invoke stop`.
 
@@ -113,19 +112,13 @@ This will safely shut down all of your running Docker containers for this projec
 
 Your environment should now be fully setup, all necessary Docker containers are created and running, and you're logged into Nautobot in your web browser. Now what?
 
-Now you can start developing your plugin in the folder generated for you by Cookiecutter.
-
-#### Adding new chatbot commands
-
-After updating the `{{ cookiecutter.project_name }}/worker.py` file and saving it, the backend Django service should auto-reload with your changes. If it doesn't, or a bug in the code caused it to crash, you can quickly relaunch it from your poetry environment with `invoke restart`.
+Now you can start developing your jobs in the folder generated for you by Cookiecutter.
 
 ## Docker Magic
 
-The magic here is the root directory is mounted inside your Docker containers when built and ran, so **any** changes made to the files in here are directly updated to the Nautobot plugin code running in Docker. This means that as you modify the code in your `nautobot-plugin` folder (or whatever you named your plugin when generating it via Cookiecutter), the changes will be instantly updated in Nautobot.
+The magic here is the root directory is mounted inside your Docker containers when built and ran, so **any** changes made to the files in here are directly updated to the Nautobot jobs code running in Docker.
 
 > NOTE: There are a few exceptions to this, as outlined in the section [To Rebuild or Not To Rebuild](#to-rebuild-or-not-to-rebuild).
-
-The backend Django process is setup to automatically reload itself (it only takes a couple of seconds) every time a file is updated (saved). So for example, if you were to update one of the files like `tables.py`, then save it, the changes will be visible right away in the web browser!
 
 > NOTE: You may get connection refused while Django reloads, but it should be refreshed fairly quickly.
 

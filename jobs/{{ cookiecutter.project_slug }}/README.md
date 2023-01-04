@@ -1,48 +1,12 @@
 # {{cookiecutter.verbose_name}}
 
-A plugin for [Nautobot](https://github.com/nautobot/nautobot).
-
-## Installation
-
-The plugin is available as a Python package in pypi and can be installed with pip
-
-```shell
-pip install {{cookiecutter.project_slug}}
-```
-
-> The plugin is compatible with Nautobot {{cookiecutter.min_nautobot_version}} and higher
-
-To ensure {{cookiecutter.verbose_name}} is automatically re-installed during future upgrades, create a file named `local_requirements.txt` (if not already existing) in the Nautobot root directory (alongside `requirements.txt`) and list the `{{cookiecutter.project_slug}}` package:
-
-```no-highlight
-# echo {{cookiecutter.project_slug}} >> local_requirements.txt
-```
-
-Once installed, the plugin needs to be enabled in your `nautobot_config.py`
-
-```python
-# In your nautobot_config.py
-PLUGINS = ["nautobot_chatops", "{{cookiecutter.project_name}}"]
-
-PLUGINS_CONFIG = {
-  "nautobot_chatops": {
-    # ADD SLACK/MS-TEAMS/WEBEX-TEAMS/MATTERMOST SETTINGS HERE
-  }
-  "{{cookiecutter.project_name}}": {
-    # ADD YOUR SETTINGS HERE
-  }
-}
-```
-
-The plugin behavior can be controlled with the following list of settings
-
-- TODO
+Jobs for [Nautobot](https://github.com/nautobot/nautobot).
 
 ## Usage
 
-### API
+This repository should be configured inside of your Nautobot deployment based on the [Documentation](https://docs.nautobot.com/projects/core/en/stable/models/extras/gitrepository/).
 
-TODO
+> The jobs are compatible with Nautobot {{cookiecutter.min_nautobot_version}} and higher
 
 ## Contributing
 
