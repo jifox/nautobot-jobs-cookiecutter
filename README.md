@@ -1,6 +1,6 @@
 # Nautobot Jobs Cookiecutter
 
-> NOTE: This was originally forked from [Nautobot Chatops Cookiecutter](https://github.com/h4ndzdatm0ld/nautobot-jobs-cookiecutter)
+> NOTE: This was originally forked from [Nautobot Chatops Cookiecutter](https://github.com/nautobot/nautobot-chatops-cookiecutter)
 
 This project helps to get you started on developing Nautobot Jobs quickly. When running through the cookie cutter template, there are a few questions that will help dynamically create content within the final "baked cookie" project.
 
