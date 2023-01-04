@@ -14,9 +14,6 @@ include = [
 {%- endif %}
     "README.md",
 ]
-packages = [
-    { include = "{{cookiecutter.project_name}}" },
-]
 
 [tool.poetry.dependencies]
 # Used for local development

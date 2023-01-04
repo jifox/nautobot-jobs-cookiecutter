@@ -17,16 +17,15 @@ RUN poetry config virtualenvs.create false \
 # -------------------------------------------------------------------------------------
 # Install Nautobot Plugin
 # -------------------------------------------------------------------------------------
-WORKDIR /source
+# WORKDIR /source
 
-# Copy in only pyproject.toml/poetry.lock to help with caching this layer if no updates to dependencies
-COPY poetry.lock pyproject.toml /source/
-# --no-root declares not to install the project package since we're wanting to take advantage of caching dependency installation
-# and the project is copied in and installed after this step
-RUN poetry install --no-interaction --no-ansi --no-root
+# # Copy in only pyproject.toml/poetry.lock to help with caching this layer if no updates to dependencies
+# COPY poetry.lock pyproject.toml /source/
+# # --no-root declares not to install the project package since we're wanting to take advantage of caching dependency installation
+# # and the project is copied in and installed after this step
+# RUN poetry install --no-interaction --no-ansi --no-root
 
 # Copy in the rest of the source code and install local Nautobot plugin
-COPY . /source
-RUN poetry install --no-interaction --no-ansi
-
+# COPY . /source
+COPY jobs ${NAUTOBOT_ROOT}/jobs
 COPY development/nautobot_config.py ${NAUTOBOT_ROOT}/nautobot_config.py
