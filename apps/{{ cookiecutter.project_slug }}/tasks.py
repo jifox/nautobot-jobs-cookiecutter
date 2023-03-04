@@ -146,12 +146,12 @@ def docker_compose(context, command, **kwargs):
     """
     compose_command_tokens = [
         "docker-compose",
-        f'--project-name "{context.nautobot.project_name}"',
-        f'--project-directory "{context.nautobot.compose_dir}"',
+        f'--project-name "{context.{{cookiecutter.project_name}}.project_name}"',
+        f'--project-directory "{context.{{cookiecutter.project_name}}.compose_dir}"',
     ]
 
-    for compose_file in context.nautobot.compose_files:
-        compose_file_path = os.path.join(context.nautobot.compose_dir, compose_file)
+    for compose_file in context.{{cookiecutter.project_name}}.compose_files:
+        compose_file_path = os.path.join(context.{{cookiecutter.project_name}}.compose_dir, compose_file)
         compose_command_tokens.append(f'-f "{compose_file_path}"')
 
     compose_command_tokens.append(command)
@@ -164,7 +164,7 @@ def docker_compose(context, command, **kwargs):
     print(f'Running docker-compose command "{command}"')
     compose_command = " ".join(compose_command_tokens)
     env = kwargs.pop("env", {})
-    env.update({"PYTHON_VER": context.nautobot.python_ver})
+    env.update({"PYTHON_VER": context.{{cookiecutter.project_name}}.python_ver})
     if "hide" not in kwargs:
         print_command(compose_command, env=env)
     return context.run(compose_command, env=env, **kwargs)
@@ -172,7 +172,7 @@ def docker_compose(context, command, **kwargs):
 
 def run_command(context, command, **kwargs):
     """Wrapper to run a command locally or inside the nautobot container."""
-    if is_truthy(context.nautobot.local):
+    if is_truthy(context.{{cookiecutter.project_name}}.local):
         env = kwargs.pop("env", {})
         if "hide" not in kwargs:
             print_command(command, env=env)
@@ -203,7 +203,7 @@ def run_command(context, command, **kwargs):
 )
 def build(context, force_rm=False, cache=True, poetry_parallel=True, pull=False, skip_docs_build=False):
     """Build Nautobot docker image."""
-    command = f"build --build-arg PYTHON_VER={context.nautobot.python_ver}"
+    command = f"build --build-arg PYTHON_VER={context.{{cookiecutter.project_name}}.python_ver}"
 
     if not cache:
         command += " --no-cache"
@@ -214,7 +214,7 @@ def build(context, force_rm=False, cache=True, poetry_parallel=True, pull=False,
     if pull:
         command += " --pull"
 
-    print(f"Building Nautobot with Python {context.nautobot.python_ver}...")
+    print(f"Building Nautobot with Python {context.{{cookiecutter.project_name}}.python_ver}...")
 
     docker_compose(context, command, env={"DOCKER_BUILDKIT": "1", "COMPOSE_DOCKER_CLI_BUILD": "1"})
 
@@ -231,13 +231,13 @@ def build(context, force_rm=False, cache=True, poetry_parallel=True, pull=False,
 def build_dependencies(context, poetry_parallel=True):
 
     # Determine preferred/default target architecture
-    output = context.run("docker buildx inspect default", env={"PYTHON_VER": context.nautobot.python_ver}, hide=True)
+    output = context.run("docker buildx inspect default", env={"PYTHON_VER": context.{{cookiecutter.project_name}}.python_ver}, hide=True)
     result = re.search(r"Platforms: ([^,\n]+)", output.stdout)
 
     build_kwargs = {
         "dependencies_base_branch": "local",
         "poetry_parallel": poetry_parallel,
-        "tag": f"ghcr.io/nautobot/nautobot-dependencies:local-py{context.nautobot.python_ver}",
+        "tag": f"ghcr.io/nautobot/nautobot-dependencies:local-py{context.{{cookiecutter.project_name}}.python_ver}",
         "target": "dependencies",
     }
 
@@ -270,14 +270,14 @@ def buildx(
     poetry_parallel=False,
 ):
     """Build Nautobot docker image using the experimental buildx docker functionality (multi-arch capability)."""
-    print(f"Building Nautobot {target} target with Python {context.nautobot.python_ver} for {platforms}...")
+    print(f"Building Nautobot {target} target with Python {context.{{cookiecutter.project_name}}.python_ver} for {platforms}...")
     if tag is None:
         if target == "dev":
             pass
         if target == "final-dev":
-            tag = f"networktocode/nautobot-dev-py{context.nautobot.python_ver}:local"
+            tag = f"networktocode/nautobot-dev-py{context.{{cookiecutter.project_name}}.python_ver}:local"
         elif target == "final":
-            tag = f"networktocode/nautobot-py{context.nautobot.python_ver}:local"
+            tag = f"networktocode/nautobot-py{context.{{cookiecutter.project_name}}.python_ver}:local"
         else:
             print(f"Not sure what should be the standard tag for target {target}, will not tag.")
     command_tokens = [
@@ -286,7 +286,7 @@ def buildx(
         f"--target {target}",
         "--load",
         "-f ./docker/Dockerfile",
-        f"--build-arg PYTHON_VER={context.nautobot.python_ver}",
+        f"--build-arg PYTHON_VER={context.{{cookiecutter.project_name}}.python_ver}",
     ]
     if tag is not None:
         command_tokens.append(f"-t {tag}")
@@ -294,14 +294,14 @@ def buildx(
         command_tokens.append("--no-cache")
     else:
         command_tokens += [
-            f"--cache-to type=local,dest={cache_dir}/{context.nautobot.python_ver}",
-            f"--cache-from type=local,src={cache_dir}/{context.nautobot.python_ver}",
+            f"--cache-to type=local,dest={cache_dir}/{context.{{cookiecutter.project_name}}.python_ver}",
+            f"--cache-from type=local,src={cache_dir}/{context.{{cookiecutter.project_name}}.python_ver}",
         ]
     if poetry_parallel:
         command_tokens.append("--build-arg POETRY_PARALLEL=true")
 
     command = " ".join(command_tokens)
-    env = {"PYTHON_VER": context.nautobot.python_ver}
+    env = {"PYTHON_VER": context.{{cookiecutter.project_name}}.python_ver}
 
     print_command(command, env=env)
     context.run(command, env=env)
@@ -342,14 +342,14 @@ def docker_push(context, branch, commit="", datestamp=""):
     nautobot_version = get_nautobot_version()
 
     docker_image_tags_main = [
-        f"stable-py{context.nautobot.python_ver}",
-        f"{nautobot_version}-py{context.nautobot.python_ver}",
+        f"stable-py{context.{{cookiecutter.project_name}}.python_ver}",
+        f"{nautobot_version}-py{context.{{cookiecutter.project_name}}.python_ver}",
     ]
 
-    if context.nautobot.python_ver == "{{ cookiecutter.python_version }}":
+    if context.{{cookiecutter.project_name}}.python_ver == "{{ cookiecutter.python_version }}":
         docker_image_tags_main += ["stable", f"{nautobot_version}"]
     if branch == "main":
-        docker_image_names = context.nautobot.docker_image_names_main
+        docker_image_names = context.{{cookiecutter.project_name}}.docker_image_names_main
         docker_image_tags = docker_image_tags_main
     else:
         raise Exit(f"Unknown Branch ({branch}) Specified", 1)
@@ -358,10 +358,10 @@ def docker_push(context, branch, commit="", datestamp=""):
         for image_tag in docker_image_tags:
             if image_name.endswith("-dev"):
                 # Use the development image as the basis for this tag and push
-                local_image = f"networktocode/nautobot-dev-py{context.nautobot.python_ver}:local"
+                local_image = f"networktocode/nautobot-dev-py{context.{{cookiecutter.project_name}}.python_ver}:local"
             else:
                 # Use the production image as the basis for this tag and push
-                local_image = f"networktocode/nautobot-py{context.nautobot.python_ver}:local"
+                local_image = f"networktocode/nautobot-py{context.{{cookiecutter.project_name}}.python_ver}:local"
             new_image = f"{image_name}:{image_tag}"
             tag_command = f"docker tag {local_image} {new_image}"
             push_command = f"docker push {new_image}"
@@ -431,7 +431,7 @@ def vscode(context):
     """Launch Visual Studio Code with the appropriate Environment variables to run in a container."""
     command = "code nautobot.code-workspace"
 
-    context.run(command, env={"PYTHON_VER": context.nautobot.python_ver})
+    context.run(command, env={"PYTHON_VER": context.{{cookiecutter.project_name}}.python_ver})
 
 
 # ------------------------------------------------------------------------------
@@ -546,7 +546,7 @@ def build_nautobot_docs(context):
 def build_example_plugin_docs(context):
     """Build Example Plugin docs."""
     command = "mkdocs build --no-directory-urls --strict"
-    if is_truthy(context.nautobot.local):
+    if is_truthy(context.{{cookiecutter.project_name}}.local):
         local_command = f"cd examples/example_plugin && {command}"
         print_command(local_command)
         context.run(local_command, pty=True)
@@ -610,7 +610,7 @@ def pylint(context, target=None, recursive=False):
 @task
 def serve_docs(context):
     """Runs local instance of mkdocs serve (ctrl-c to stop)."""
-    if is_truthy(context.nautobot.local):
+    if is_truthy(context.{{cookiecutter.project_name}}.local):
         run_command(context, "mkdocs serve")
     else:
         start(context, service="mkdocs")
@@ -700,7 +700,7 @@ def unittest(
     command = f"coverage run{append_arg} --module nautobot.core.cli test {label}"
     command += " --config=nautobot/core/tests/nautobot_config.py"
     # booleans
-    if context.nautobot.get("cache_test_fixtures", False) or cache_test_fixtures:
+    if context.{{cookiecutter.project_name}}.get("cache_test_fixtures", False) or cache_test_fixtures:
         command += " --cache-test-fixtures"
     if keepdb:
         command += " --keepdb"
