@@ -59,11 +59,11 @@ def is_truthy(arg):
 # Variables may be overwritten in invoke.yml or by the environment variables INVOKE_{{cookiecutter.project_name.upper()}}_xxx
 compose_files = [
     "docker-compose.redis.yml",
-{% if cookiecutter.database|lower == "mysql" -%}
+{% if cookiecutter.database|lower == "mysql" %}
     "docker-compose.mysql.yml",
-{% else -%}
-    "docker-compose.postgresql.yml",
-{% endif -%}
+{% else %}
+    "docker-compose.postgres.yml",
+{% endif %}
     "docker-compose.base.yml",
     "docker-compose.dev.yml"]
 
