@@ -6,7 +6,7 @@
   "project_slug": "{{cookiecutter.project_name.lower().replace(' ', '-').replace('_', '-')}}",
   "min_nautobot_version": "1.2.0",
   "max_nautobot_version": "1.9999",
-  "nautobot_version": "latest",
+  "nautobot_version": "1.5.11",
   "camel_name": "{{cookiecutter.project_slug.title().replace('-', '')}}",
   "project_short_description": "{{cookiecutter.verbose_name}}",
   "version": "0.1.0",

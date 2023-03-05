@@ -61,9 +61,9 @@ compose_files = [
     "docker-compose.redis.yml",
 {%- if cookiecutter.database|lower == "mysql" %}
     "docker-compose.mysql.yml",
-{% else %}
+{%- else %}
     "docker-compose.postgres.yml",
-{% endif %}
+{%- endif %}
     "docker-compose.base.yml",
     "docker-compose.dev.yml"]
 
@@ -165,6 +165,8 @@ def docker_compose(context, command, **kwargs):
     compose_command = " ".join(compose_command_tokens)
     env = kwargs.pop("env", {})
     env.update({"PYTHON_VER": context.{{cookiecutter.project_name}}.python_ver})
+    if "NAUTOBOT_VER" not in env:
+        env["NAUTOBOT_VER"] = context.{{cookiecutter.project_name}}.nautobot_ver
     if "hide" not in kwargs:
         print_command(compose_command, env=env)
     return context.run(compose_command, env=env, **kwargs)

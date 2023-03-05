@@ -1,5 +1,5 @@
 nautobot-plugin-ssot/
-update__all.sh
+update_all.sh
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
