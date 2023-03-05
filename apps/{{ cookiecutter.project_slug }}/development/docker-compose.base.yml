@@ -59,10 +59,9 @@ services:
   mkdocs:
     profiles:
       - mkdocs
-    image: "local/nautobot-dev:local-py${PYTHON_VER}"
     entrypoint: "mkdocs serve -a '0.0.0.0:8001'"
     healthcheck:
       disable: true
-    tty: true
     ports:
       - "8001:8001"
+    <<: *nautobot-base
