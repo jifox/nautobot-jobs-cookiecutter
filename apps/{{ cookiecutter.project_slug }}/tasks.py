@@ -77,6 +77,7 @@ namespace.configure(
             "local": False,
             "compose_dir": os.path.join(os.path.dirname(__file__), "development"),
             "compose_files": compose_files,
+            "compose_http_timeout": "86400",
         }
     }
 )
