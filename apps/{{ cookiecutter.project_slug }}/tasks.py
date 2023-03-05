@@ -169,8 +169,7 @@ def docker_compose(context, command, **kwargs):
     compose_command = " ".join(compose_command_tokens)
     env = kwargs.pop("env", {})
     if "PYTHON_VER" not in env:
-        env["PYTHON_VER"] = context.{{cookiecutter.project_name}}.python_ver
-    if "NAUTOBOT_VER" not in env:
+        env["PYTHON_VER"] = context.{{cookiecutter.project_name}}.python_ver    if "NAUTOBOT_VER" not in env:
         env["NAUTOBOT_VER"] = context.{{cookiecutter.project_name}}.nautobot_ver
     if "hide" not in kwargs:
         print_command(compose_command, env=env)
