@@ -112,17 +112,20 @@ def print_command(command, env=None):
         --load \
         -f ./docker/Dockerfile \
         --build-arg PYTHON_VER={{ cookiecutter.python_version }} \
+        --build-arg NAUTOBOT_VER={{cookiecutter.nautobot_version}} \
         -t networktocode/nautobot-py{{ cookiecutter.python_version }}:local \
         --no-cache
     >>> env = {"PYTHON_VER": "{{ cookiecutter.python_version }}"}
     >>> print_command(command, env=env)
     PYTHON_VER={{ cookiecutter.python_version }} \
+    NAUTOBOT_VER={{cookiecutter.nautobot_version}} \
     docker buildx build . \
         --platform linux/amd64 \
         --target final \
         --load \
         -f ./docker/Dockerfile \
         --build-arg PYTHON_VER={{ cookiecutter.python_version }} \
+        --build-arg NAUTOBOT_VER={{cookiecutter.nautobot_version}} \
         -t networktocode/nautobot-py{{ cookiecutter.python_version }}:local \
         --no-cache
     """
@@ -165,7 +168,8 @@ def docker_compose(context, command, **kwargs):
     print(f'Running docker-compose command "{command}"')
     compose_command = " ".join(compose_command_tokens)
     env = kwargs.pop("env", {})
-    env.update({"PYTHON_VER": context.{{cookiecutter.project_name}}.python_ver})
+    if "PYTHON_VER" not in env:
+        env["PYTHON_VER"] = context.{{cookiecutter.project_name}}.python_ver
     if "NAUTOBOT_VER" not in env:
         env["NAUTOBOT_VER"] = context.{{cookiecutter.project_name}}.nautobot_ver
     if "hide" not in kwargs:

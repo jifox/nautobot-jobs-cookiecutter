@@ -24,7 +24,12 @@ services:
     healthcheck:
       disable: true
     tty: true
-  worker:
+  celery_worker:
+    volumes:
+      - "../jobs:/opt/nautobot/jobs"
+      - "./nautobot_config.py:/opt/nautobot/nautobot_config.py"
+      - "../:/source"
+  celery_beat:
     volumes:
       - "../jobs:/opt/nautobot/jobs"
       - "./nautobot_config.py:/opt/nautobot/nautobot_config.py"
