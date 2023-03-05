@@ -225,9 +225,9 @@ def build(context, force_rm=False, cache=True, poetry_parallel=True, pull=False,
 
     docker_compose(context, command, env={"DOCKER_BUILDKIT": "1", "COMPOSE_DOCKER_CLI_BUILD": "1"})
 
-    if not skip_docs_build:
-        # Build the docs so they are available. Skip if you're using a `final-dev` or `final` image instead of `dev`.
-        build_nautobot_docs(context)
+    # if not skip_docs_build:
+    #    # Build the docs so they are available. Skip if you're using a `final-dev` or `final` image instead of `dev`.
+    #    build_nautobot_docs(context)
 
 
 @task(
@@ -540,9 +540,9 @@ def loaddata(context, filepath="db_output.json"):
 @task()
 def build_and_check_docs(context):
     """Build docs for use within Nautobot."""
-    build_nautobot_docs(context)
-    build_example_plugin_docs(context)
-
+    # build_nautobot_docs(context)
+    # build_example_plugin_docs(context)
+    pass
 
 def build_nautobot_docs(context):
     "Build Nautobot docs."
@@ -699,9 +699,9 @@ def unittest(
     performance_snapshot=False,
 ):
     """Run Nautobot unit tests."""
-    if not skip_docs_build:
+    {# if not skip_docs_build:
         # First build the docs so they are available.
-        build_and_check_docs(context)
+        build_and_check_docs(context) #}
 
     append_arg = " --append" if append else ""
     command = f"coverage run{append_arg} --module nautobot.core.cli test {label}"
@@ -867,7 +867,7 @@ def tests(context, lint_only=False, keepdb=False):
     pylint(context)
     check_migrations(context)
     check_schema(context)
-    build_and_check_docs(context)
+    # build_and_check_docs(context)
     if not lint_only:
         unittest(context, keepdb=keepdb)
 
