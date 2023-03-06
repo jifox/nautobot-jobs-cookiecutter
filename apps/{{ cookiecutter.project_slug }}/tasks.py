@@ -196,6 +196,27 @@ def run_command(context, command, **kwargs):
         docker_compose(context, compose_command, pty=True)
 
 
+@task(help={"command": "Command to execute in database container",
+            "env": "Environment variables to pass to the command",
+            "hide": "Hide the command output", })
+def db_command(context, command, **kwargs):
+    """Wrapper to run a command locally or inside the database container."""
+    if is_truthy(context.{{cookiecutter.project_name}}.local):
+        env = kwargs.pop("env", {})
+        if "hide" not in kwargs:
+            print_command(command, env=env)
+        context.run(command, pty=True, env=env, **kwargs)
+    else:
+        # Check if Database is running; no need to start another Database container to run a command
+        docker_compose_status = "ps --services --filter status=running"
+        results = docker_compose(context, docker_compose_status, hide="out")
+        if "db" in results.stdout:
+            compose_command = f"exec db {command}"
+        else:
+            compose_command = f"run --entrypoint '{command}' db"
+
+        docker_compose(context, compose_command, pty=True)
+
 # ------------------------------------------------------------------------------
 # BUILD
 # ------------------------------------------------------------------------------
