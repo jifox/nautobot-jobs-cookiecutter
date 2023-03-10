@@ -200,9 +200,12 @@ def run_command(context, command, **kwargs):
         docker_compose(context, compose_command, pty=True)
 
 
-@task(help={"command": "Command to execute in database container",
-            "env": "Environment variables to pass to the command",
-            "hide": "Hide the command output", })
+@task(help={"command": (
+    "Command to execute in database container",
+    "\nenv: Environment variables to pass to the command",
+    "\nhide: Hide the command output",
+    )
+}) # type: ignore
 def db_command(context, command, **kwargs):
     """Wrapper to run a command locally or inside the database container."""
     if is_truthy(context.{{cookiecutter.project_name}}.local):
