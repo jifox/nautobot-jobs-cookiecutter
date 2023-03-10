@@ -1,5 +1,5 @@
 ARG NAUTOBOT_VER="{{ cookiecutter.min_nautobot_version }}"
-ARG PYTHON_VER=3.8
+ARG PYTHON_VER="{{ cookiecutter.python_version }}"
 FROM ghcr.io/nautobot/nautobot-dev:${NAUTOBOT_VER}-py${PYTHON_VER}
 
 ENV prometheus_multiproc_dir=/prom_cache
@@ -28,4 +28,5 @@ RUN poetry config virtualenvs.create false \
 # Copy in the rest of the source code and install local Nautobot plugin
 # COPY . /source
 COPY jobs ${NAUTOBOT_ROOT}/jobs
+COPY manage.py ${NAUTOBOT_ROOT}/manage.py
 COPY development/nautobot_config.py ${NAUTOBOT_ROOT}/nautobot_config.py
