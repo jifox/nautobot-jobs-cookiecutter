@@ -294,6 +294,7 @@ fabric.properties
 ### vscode ###
 .vscode/*
 *.code-workspace
+!/nautobot.code-workspace
 
 # Rando
 creds.env
