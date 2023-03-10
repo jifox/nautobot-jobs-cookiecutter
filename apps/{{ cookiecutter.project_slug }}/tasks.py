@@ -65,7 +65,11 @@ compose_files = [
     "docker-compose.postgres.yml",
 {%- endif %}
     "docker-compose.base.yml",
-    "docker-compose.dev.yml"]
+    "docker-compose.dev.yml",
+{%- if cookiecutter.vscode_remote_debug %}
+    "docker-compose.vscode-rdb.yml",
+{%- endif %}
+]
 
 namespace = Collection("{{cookiecutter.project_name}}")
 namespace.configure(

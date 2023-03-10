@@ -11,7 +11,11 @@
   "project_short_description": "{{cookiecutter.verbose_name}}",
   "version": "0.1.0",
   "open_source_license": ["Apache-2.0", "Not open source"],
-  "_copy_without_render": [".github/actions/setup-environment/action.yml"],
   "database": ["PostgreSQL", "MySQL"],
-  "python_version": "3.9"
+  "python_version": "3.9",
+  "vscode_remote_debug": "true",
+  "nautobot_port": 8080,
+  "vscode_rdb_nautobot_port": 6899,
+  "vscode_rdb_celery_port": 6898,
+  "_copy_without_render": [".github/actions/setup-environment/action.yml"]
 }

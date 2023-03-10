@@ -1,11 +1,11 @@
 # Used to integrate with Microsoft VS Code remote debug feature.
 ---
-version: "3.4"
+version: "3.8"
 services:
   nautobot:
     ports:
-      - "8080:8080"
-      - "6899:6899"
+      - "{{cookiecutter.nautobot_port}}:8080"
+      - "{{cookiecutter.vscode_rdb_nautobot_port}}:6899"
     entrypoint: ""
     command: sh -c "
       pip install debugpy &&
@@ -13,7 +13,7 @@ services:
       python -m debugpy --listen 0.0.0.0:6899 -m manage runserver 0.0.0.0:8080 --insecure"
   celery_worker:
     ports:
-      - "6898:6898"
+      - "{{cookiecutter.vscode_rdb_celery_port}}:6898"
     entrypoint: ""
     command: sh -c "
       pip install debugpy &&
