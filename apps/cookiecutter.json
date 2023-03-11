@@ -9,6 +9,7 @@
   "nautobot_version": "1.5.12",
   "camel_name": "{{cookiecutter.project_slug.title().replace('-', '')}}",
   "project_short_description": "{{cookiecutter.verbose_name}}",
+  "app_base_url": "{{cookiecutter.project_name.lower().replace(' ', '-').replace('_', '-')}}",
   "version": "0.1.0",
   "open_source_license": ["Apache-2.0", "Not open source"],
   "database": ["PostgreSQL", "MySQL"],

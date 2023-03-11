@@ -42,10 +42,35 @@ LOGGING["loggers"]["nautobot"]["level"] = LOG_LEVEL  # noqa: F405
 # Plugins
 #
 
-PLUGINS = [
-    # "example_plugin",
-]
+PLUGINS = []
 
 METRICS_ENABLED = True
 
 CELERY_WORKER_PROMETHEUS_PORTS = [8080]
+
+
+################################################################################
+#
+#  {{ cookiecutter.project_name }} Plugin-Settings
+#
+################################################################################
+
+{{ cookiecutter.project_name | upper }}_ENABLED = is_truthy(os.getenv("{{ cookiecutter.project_name | upper }}_ENABLED", False))
+if {{ cookiecutter.project_name | upper }} in PLUGINS:
+
+    if "{{ cookiecutter.project_name }}" not in PLUGINS:
+        PLUGINS.append("{{ cookiecutter.project_name }}")
+
+    if "{{ cookiecutter.project_name }}" not in PLUGINS_CONFIG:
+        LOGGING["loggers"]["{{ cookiecutter.project_name }}"] = {}
+        LOGGING["loggers"]["{{ cookiecutter.project_name }}"]["handlers"] = ["verbose_console" if DEBUG else "normal_console"]  # noqa: F405
+        LOGGING["loggers"]["{{ cookiecutter.project_name }}"]["level"] = LOG_LEVEL  # noqa: F405
+
+        # Plugins configuration settings. These settings are used by various plugins that the user may have installed.
+        # Each key in the dictionary is the name of an installed plugin and its value is a dictionary of settings.
+        PLUGINS_CONFIG.update(
+            {
+                "{{ cookiecutter.project_name }}": {
+                },
+            }
+        )
