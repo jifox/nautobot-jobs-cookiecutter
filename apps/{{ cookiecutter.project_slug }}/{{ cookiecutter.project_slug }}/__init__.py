@@ -32,10 +32,10 @@ class {{ cookiecutter.camel_name }}PluginConfig(PluginConfig):
     }
     caching_config = {}
 
-    # URL reverse lookup names
-    home_view_name = "plugins:{{ cookiecutter.project_name }}:home"
-    config_view_name = "plugins:{{ cookiecutter.project_name }}:config"
-    docs_view_name = "plugins:{{ cookiecutter.project_name }}:docs"
+    # # URL reverse lookup names
+    # home_view_name = "plugins:{{ cookiecutter.project_name }}:home"
+    # config_view_name = "plugins:{{ cookiecutter.project_name }}:config"
+    # docs_view_name = "plugins:{{ cookiecutter.project_name }}:docs"
 
     def ready(self):
         """Callback when this app is loaded."""
