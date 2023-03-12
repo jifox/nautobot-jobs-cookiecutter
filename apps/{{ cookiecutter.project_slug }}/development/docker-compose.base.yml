@@ -43,7 +43,6 @@ services:
         - "nautobot-server celery inspect ping --destination celery@$$HOSTNAME"
     <<: *nautobot-base
   celery_beat:
-    image: "local/nautobot-dev:local-py${PYTHON_VER}"
     entrypoint: "nautobot-server celery beat -l INFO"
     healthcheck:
       disable: true
