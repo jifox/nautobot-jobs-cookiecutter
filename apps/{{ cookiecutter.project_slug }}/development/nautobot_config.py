@@ -56,7 +56,7 @@ CELERY_WORKER_PROMETHEUS_PORTS = [8080]
 ################################################################################
 
 {{ cookiecutter.project_name | upper }}_ENABLED = is_truthy(os.getenv("{{ cookiecutter.project_name | upper }}_ENABLED", False))
-if {{ cookiecutter.project_name | upper }} in PLUGINS:
+if {{ cookiecutter.project_name | upper }}_ENABLED in PLUGINS:
 
     if "{{ cookiecutter.project_name }}" not in PLUGINS:
         PLUGINS.append("{{ cookiecutter.project_name }}")
