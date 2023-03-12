@@ -1,9 +1,9 @@
 <div class="md-copyright">
     {% if config.copyright %}
     <div class="md-copyright__highlight">
-        {{ '{{' {{ '}}' }} config.copyright {{ '}}' }}
+        {{ '{{ config.copyright ' }}{{ '}}' }}
     </div>
-    <a href="{{ '{{' {{ '}}' }} config.repo_url {{ '}}' }}/blob/main/LICENSE.txt">Apache-2.0 LICENSE</a>
+    <a href="{{ '{{' }} config.repo_url {{ '}}' }}/blob/main/LICENSE.txt">Apache-2.0 LICENSE</a>
     {% endif %}
 </div>
 
@@ -12,7 +12,7 @@
     | <a href="https://www.networktocode.com/community/" target="_blank" rel="noopener">Join Nautobot Slack</a>
     {% if config.extra.ntc_sponsor == true %}
     | <a href="https://networktocode.com" target="_blank" rel="noopener">Sponsored by <img
-            src={{ '{{' {{ '}}' }} "assets/networktocode_bw.png" | url {{ '}}' }} class="copyright-logo"></a>
+            src={{ '{{' }} "assets/networktocode_bw.png" | url {{ '}}' }} class="copyright-logo"></a>
     {% endif %}
 </div>
 
